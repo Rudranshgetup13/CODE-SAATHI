@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CODESAATHI — Solver Dashboard</title>
+  <link rel="stylesheet" href="css/style.css"/>
+</head>
+<body>
+  <header class="main-header">
+    <div class="brand">
+      <span class="logo-mark">👑</span><span class="logo-text">CODESAATHI</span>
+    </div>
+    <nav class="nav-links">
+      <a href="index.html#latest">Latest</a>
+      <a href="index.html#dashboard">Task Pool</a>
+      <a href="#earnings">Earnings</a>
+      <a href="#profile">Profile</a>
+      <button id="themeToggleDash" class="btn btn-outline small" title="Toggle theme">🌙</button>
+    </nav>
+  </header>
+
+  <section class="dash-hero">
+    <div>
+      <h2 id="greeting">Hello, Developer 👋</h2>
+      <p id="roleInfo" class="muted">Role: Solver | Skills: —</p>
+    </div>
+    <div class="stats">
+      <div class="stat"><strong id="statActive">0</strong><span>Active</span></div>
+      <div class="stat"><strong id="statCompleted">0</strong><span>Completed</span></div>
+      <div class="stat"><strong id="statEarnings">₹0</strong><span>Total Earned</span></div>
+    </div>
+  </section>
+
+  <main class="solver-layout">
+    <aside class="side">
+      <h3>Navigation</h3>
+      <ul class="side-list">
+        <li><a href="#kanban">My Tasks</a></li>
+        <li><a href="#earnings">Earnings</a></li>
+        <li><a href="#notifications">Notifications</a></li>
+        <li><a href="#profile">Profile</a></li>
+      </ul>
+      <div class="tip">
+        Pro tip: click a task to open details, chat, and submit work.
+      </div>
+    </aside>
+
+    <section class="main">
+      <!-- Kanban -->
+      <section id="kanban" class="kanban">
+        <h3>My Tasks</h3>
+        <div class="kanban-cols">
+          <div class="kcol"><h4>To-Do</h4><div class="klist" id="todoCol"></div></div>
+          <div class="kcol"><h4>In Progress</h4><div class="klist" id="doingCol"></div></div>
+          <div class="kcol"><h4>Submitted</h4><div class="klist" id="submittedCol"></div></div>
+          <div class="kcol"><h4>Completed</h4><div class="klist" id="doneCol"></div></div>
+        </div>
+      </section>
+
+      <!-- Earnings -->
+      <section id="earnings" class="earnings">
+        <h3>Earnings</h3>
+        <div class="earn-grid">
+          <div class="card-lite"><span class="muted">Withdrawable</span><strong id="earnAvail">₹0</strong></div>
+          <div class="card-lite"><span class="muted">Pending</span><strong id="earnPending">₹0</strong></div>
+          <div class="card-lite"><span class="muted">Lifetime</span><strong id="earnLifetime">₹0</strong></div>
+        </div>
+        <p class="tiny muted">Demo: move tasks to “Completed” to increase Lifetime.</p>
+      </section>
+
+      <!-- Notifications -->
+      <section id="notifications" class="notifs">
+        <h3>Notifications</h3>
+        <ul id="notifList" class="notif-list"></ul>
+      </section>
+
+      <!-- Profile -->
+      <section id="profile" class="profile">
+        <h3>Your Profile</h3>
+        <div class="grid-2">
+          <input id="nameInput" placeholder="Your name"/>
+          <input id="skillsInput" placeholder="Your skills (comma separated)"/>
+        </div>
+        <button id="saveProfile" class="btn small">Save</button>
+        <p class="tiny muted">Saved to localStorage only (demo).</p>
+      </section>
+    </section>
+  </main>
+
+  <!-- Task modal -->
+  <div class="modal" id="taskModal" aria-hidden="true">
+    <div class="modal-card wide">
+      <button class="modal-close" id="closeTaskModal" aria-label="Close">×</button>
+      <h3 id="tmTitle">Task</h3>
+      <p id="tmDesc" class="muted"></p>
+      <div class="escrow">
+        <div><span class="muted">Budget</span><strong id="tmBudget">₹0</strong></div>
+        <div><span class="muted">Status</span><strong id="tmStatus">To-Do</strong></div>
+      </div>
+
+      <h4>Submit Work</h4>
+      <textarea id="tmNotes" rows="4" placeholder="Explain what you did…"></textarea>
+      <label class="fileUp">
+        <input type="file" id="tmFile" hidden/>
+        <span class="btn btn-outline small">Attach file</span>
+        <span id="tmFileName" class="muted tiny"></span>
+      </label>
+
+      <div class="grid-2">
+        <button id="markDoing" class="btn">Start</button>
+        <button id="markSubmitted" class="btn btn-outline">Submit</button>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">© 2025 CODESAATHI. Build. Solve. Earn.</footer>
+  <script src="scripts/script.js"></script>
+</body>
+</html>

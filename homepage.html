@@ -1,0 +1,2024 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Code Saathi – Where Coders Help Coders</title>
+  <meta name="description" content="Code Saathi - Learn faster, earn smarter. Get instant coding help from verified developers and earn rewards while solving problems.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💻</text></svg>">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+  <style>
+    * { 
+      margin: 0; 
+      padding: 0; 
+      box-sizing: border-box; 
+    }
+    
+    body { 
+      font-family: 'Poppins', sans-serif; 
+      background: linear-gradient(135deg, #0d0d1a 0%, #1a0d2e 50%, #16213e 100%);
+      color: #f0f0f5; 
+      line-height: 1.6; 
+      overflow-x: hidden;
+    }
+    
+    a { 
+      text-decoration: none; 
+      color: inherit; 
+    }
+
+    /* Scroll Progress Bar */
+    .scroll-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #5E60CE, #64DFDF);
+      z-index: 10000;
+      transition: width 0.1s ease;
+    }
+
+    /* Glassmorphism Navbar */
+    header {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+      padding: 15px 30px;
+      display: flex; 
+      justify-content: space-between; 
+      align-items: center;
+      position: fixed; 
+      top: 0; 
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      transition: all 0.3s ease;
+    }
+
+    .logo { 
+      font-size: 24px; 
+      font-weight: 700; 
+      background: linear-gradient(45deg, #5E60CE 0%, #64DFDF 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: glow 2s ease-in-out infinite alternate;
+    }
+
+    @keyframes glow {
+      from { filter: drop-shadow(0 0 5px rgba(94, 96, 206, 0.5)); }
+      to { filter: drop-shadow(0 0 20px rgba(94, 96, 206, 0.8)); }
+    }
+    
+    header ul { 
+      list-style: none; 
+      display: flex; 
+      gap: 30px; 
+    }
+    
+    header a { 
+      color: rgba(255, 255, 255, 0.9); 
+      font-weight: 500; 
+      transition: all 0.3s ease;
+      position: relative;
+      padding: 8px 16px;
+      border-radius: 8px;
+    }
+    
+    header a:hover { 
+      color: #64DFDF;
+      background: rgba(100, 223, 223, 0.1);
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(100, 223, 223, 0.3);
+    }
+
+    /* Mobile nav */
+    .menu-toggle { 
+      display: none; 
+      font-size: 24px; 
+      cursor: pointer; 
+      color: #fff; 
+    }
+    
+    @media(max-width:768px) {
+      header ul { 
+        display: none; 
+        flex-direction: column; 
+        background: rgba(20, 20, 40, 0.95);
+        backdrop-filter: blur(20px);
+        position: absolute; 
+        top: 70px; 
+        right: 20px; 
+        width: 250px; 
+        padding: 20px;
+        border-radius: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      header ul.active { display: flex; }
+      .menu-toggle { display: block; }
+    }
+
+    /* Hero Section with Enhanced Tagline */
+    .hero {
+      text-align: center; 
+      padding: 150px 20px 100px; 
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(135deg, #0d0d1a 0%, #1a0d2e 50%, #16213e 100%);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .hero canvas {
+      position: absolute;
+      top: 0; 
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 10;
+      max-width: 900px;
+    }
+
+    .hero h1 {
+      font-size: clamp(48px, 8vw, 80px);
+      margin-bottom: 20px;
+      background: linear-gradient(45deg, #5E60CE 0%, #64DFDF 50%, #00d4ff 100%);
+      background-size: 200% 200%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: gradientShift 3s ease infinite;
+      font-weight: 800;
+      letter-spacing: -2px;
+    }
+
+    @keyframes gradientShift {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+
+    .hero-tagline {
+      font-size: clamp(20px, 3.5vw, 28px);
+      color: #64DFDF;
+      margin-bottom: 15px;
+      font-weight: 600;
+      text-shadow: 0 0 20px rgba(100, 223, 223, 0.3);
+    }
+
+    .hero p { 
+      font-size: clamp(16px, 2.5vw, 20px); 
+      color: rgba(255, 255, 255, 0.8); 
+      margin-bottom: 40px;
+      font-weight: 300;
+    }
+
+    /* Floating Stats */
+    .floating-stats {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      margin: 30px 0;
+      flex-wrap: wrap;
+    }
+
+    .stat-item {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      padding: 20px 30px;
+      border-radius: 15px;
+      border: 1px solid rgba(100, 223, 223, 0.3);
+      animation: float 3s ease-in-out infinite;
+    }
+
+    .stat-item:nth-child(2) {
+      animation-delay: 0.5s;
+    }
+
+    .stat-item:nth-child(3) {
+      animation-delay: 1s;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .stat-number {
+      font-size: 32px;
+      font-weight: 700;
+      color: #64DFDF;
+      display: block;
+    }
+
+    .stat-label {
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .cta-button {
+      padding: 15px 35px;
+      border-radius: 50px;
+      background: linear-gradient(45deg, #5E60CE 0%, #64DFDF 100%);
+      color: white;
+      font-size: 16px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      border: none;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 20px 40px rgba(94, 96, 206, 0.4);
+    }
+
+    .cta-button.secondary {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border: 2px solid #64DFDF;
+    }
+
+    /* Live Problem Feed */
+    .live-feed {
+      background: rgba(94, 96, 206, 0.1);
+      padding: 30px 0;
+      overflow: hidden;
+      border-top: 1px solid rgba(100, 223, 223, 0.2);
+      border-bottom: 1px solid rgba(100, 223, 223, 0.2);
+    }
+
+    .feed-ticker {
+      display: flex;
+      gap: 50px;
+      animation: scroll 30s linear infinite;
+      white-space: nowrap;
+    }
+
+    @keyframes scroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    .feed-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255, 255, 255, 0.05);
+      padding: 12px 25px;
+      border-radius: 25px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .feed-item i {
+      color: #64DFDF;
+      font-size: 18px;
+    }
+    
+
+    /* How It Works Section */
+    .how-it-works {
+      padding: 100px 20px;
+      text-align: center;
+    }
+
+    .how-it-works h2 {
+      font-size: clamp(32px, 5vw, 48px);
+      margin-bottom: 60px;
+      background: linear-gradient(45deg, #5E60CE, #64DFDF);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-weight: 700;
+    }
+
+    .steps-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .step {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(20px);
+      padding: 40px 30px;
+      border-radius: 20px;
+      border: 2px solid rgba(100, 223, 223, 0.2);
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .step:hover {
+      transform: translateY(-10px);
+      border-color: #64DFDF;
+      box-shadow: 0 30px 60px rgba(100, 223, 223, 0.2);
+    }
+
+    .step-number {
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(45deg, #5E60CE, #64DFDF);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      font-weight: 700;
+      margin: 0 auto 20px;
+    }
+
+    .step i {
+      font-size: 48px;
+      margin-bottom: 20px;
+      color: #64DFDF;
+    }
+
+    .step h3 {
+      font-size: 24px;
+      margin-bottom: 15px;
+      color: #64DFDF;
+    }
+
+    .step p {
+      color: rgba(255, 255, 255, 0.8);
+    }
+
+    /* Featured Solvers / Leaderboard */
+    .featured-solvers {
+      padding: 100px 20px;
+      background: rgba(0, 0, 0, 0.2);
+    }
+
+    .featured-solvers h2 {
+      text-align: center;
+      font-size: clamp(32px, 5vw, 48px);
+      margin-bottom: 60px;
+      background: linear-gradient(45deg, #5E60CE, #64DFDF);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-weight: 700;
+    }
+
+    .solvers-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+      max-width: 1200px;
+      margin: 0 auto 40px;
+    }
+
+    .solver-card {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(20px);
+      padding: 30px;
+      border-radius: 20px;
+      border: 2px solid rgba(100, 223, 223, 0.2);
+      text-align: center;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .solver-card:hover {
+      transform: translateY(-10px);
+      border-color: #64DFDF;
+      box-shadow: 0 30px 60px rgba(100, 223, 223, 0.2);
+    }
+
+    .medal {
+      position: absolute;
+      top: -15px;
+      right: 20px;
+      font-size: 40px;
+      animation: bounce 2s ease-in-out infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .solver-avatar {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      margin: 0 auto 20px;
+      border: 3px solid #64DFDF;
+      background: linear-gradient(45deg, #5E60CE, #64DFDF);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 40px;
+    }
+
+    .solver-name {
+      font-size: 22px;
+      font-weight: 600;
+      margin-bottom: 10px;
+      color: #64DFDF;
+    }
+
+    .solver-stats {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .stat {
+      text-align: center;
+    }
+
+    .stat-value {
+      display: block;
+      font-size: 24px;
+      font-weight: 700;
+      color: #64DFDF;
+    }
+
+    .stat-name {
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    .skill-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+      margin-top: 15px;
+    }
+
+    .skill-tag {
+      background: rgba(100, 223, 223, 0.1);
+      padding: 5px 15px;
+      border-radius: 15px;
+      font-size: 12px;
+      color: #64DFDF;
+      border: 1px solid rgba(100, 223, 223, 0.3);
+    }
+
+    .view-leaderboard {
+      text-align: center;
+      margin-top: 40px;
+    }
+
+    .view-leaderboard a {
+      display: inline-block;
+      padding: 15px 40px;
+      background: linear-gradient(45deg, #5E60CE, #64DFDF);
+      border-radius: 50px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .view-leaderboard a:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 20px 40px rgba(100, 223, 223, 0.3);
+    }
+
+    /* Testimonials */
+    .testimonials {
+      padding: 100px 20px;
+    }
+
+    .testimonials h2 {
+      text-align: center;
+      font-size: clamp(32px, 5vw, 48px);
+      margin-bottom: 60px;
+      background: linear-gradient(45deg, #5E60CE, #64DFDF);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-weight: 700;
+    }
+
+    .testimonial-slider {
+      max-width: 1000px;
+      margin: 0 auto;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .testimonial-track {
+      display: flex;
+      transition: transform 0.5s ease;
+    }
+
+    .testimonial-card {
+      min-width: 100%;
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(20px);
+      padding: 40px;
+      border-radius: 20px;
+      border: 2px solid rgba(100, 223, 223, 0.2);
+      text-align: center;
+    }
+
+    .testimonial-text {
+      font-size: 18px;
+      font-style: italic;
+      color: rgba(255, 255, 255, 0.9);
+      margin-bottom: 20px;
+      line-height: 1.8;
+    }
+
+    .testimonial-author {
+      font-weight: 600;
+      color: #64DFDF;
+      font-size: 16px;
+    }
+
+    .slider-dots {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 30px;
+    }
+
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.3);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .dot.active {
+      background: #64DFDF;
+      transform: scale(1.3);
+    }
+
+    /* Rewards Showcase */
+    .rewards-showcase {
+      padding: 100px 20px;
+      background: rgba(94, 96, 206, 0.05);
+      text-align: center;
+    }
+
+    .rewards-showcase h2 {
+      font-size: clamp(32px, 5vw, 48px);
+      margin-bottom: 60px;
+      background: linear-gradient(45deg, #5E60CE, #64DFDF);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-weight: 700;
+    }
+
+    .reward-flow {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 30px;
+      max-width: 1200px;
+      margin: 0 auto;
+      flex-wrap: wrap;
+    }
+
+    .reward-step {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(20px);
+      padding: 30px;
+      border-radius: 20px;
+      border: 2px solid rgba(100, 223, 223, 0.2);
+      min-width: 200px;
+      transition: all 0.3s ease;
+    }
+
+    .reward-step:hover {
+      transform: scale(1.05);
+      border-color: #64DFDF;
+    }
+
+    .reward-icon {
+      font-size: 60px;
+      margin-bottom: 15px;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+
+    .reward-arrow {
+      font-size: 40px;
+      color: #64DFDF;
+    }
+
+    .reward-counter {
+      font-size: 48px;
+      font-weight: 700;
+      color: #64DFDF;
+      margin: 20px 0;
+    }
+
+    /* About Section */
+    .about { 
+      padding: 100px 20px; 
+      position: relative;
+    }
+    
+    .about-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(20px);
+      border-radius: 24px;
+      padding: 60px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .about-container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(100, 223, 223, 0.5), transparent);
+    }
+    
+    .about h2 { 
+      text-align: center; 
+      font-size: clamp(32px, 5vw, 48px); 
+      margin-bottom: 60px; 
+      background: linear-gradient(45deg, #5E60CE, #64DFDF);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-weight: 700;
+    }
+    
+    .about-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    @media(max-width: 768px) {
+      .about-content {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+      .about-container {
+        padding: 40px 30px;
+      }
+    }
+    
+    .about-text { 
+      font-size: 18px; 
+      color: rgba(255, 255, 255, 0.8); 
+      line-height: 1.8;
+    }
+    
+    .about-images { 
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+    
+    .about-images img {
+      width: 100%; 
+      height: 200px;
+      object-fit: cover;
+      border-radius: 16px;
+      transition: all 0.3s ease;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .about-images img:hover {
+      transform: translateY(-10px) scale(1.05);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    .about-images img:first-child {
+      grid-column: span 2;
+      height: 250px;
+    }
+
+    /* Features Section */
+    .features { 
+      padding: 100px 20px; 
+      text-align: center;
+    }
+    
+    .features h2 { 
+      font-size: clamp(32px, 5vw, 48px); 
+      margin-bottom: 60px; 
+      background: linear-gradient(45deg, #5E60CE, #64DFDF);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-weight: 700;
+    }
+    
+    .feature-grid { 
+      display: grid; 
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+      gap: 30px; 
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .feature {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(20px);
+      padding: 40px 30px; 
+      border-radius: 20px; 
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .feature::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, #5E60CE, #64DFDF);
+      transform: scaleX(0);
+      transition: transform 0.3s ease;
+    }
+    
+    .feature:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 30px 60px rgba(100, 223, 223, 0.2);
+      border-color: rgba(100, 223, 223, 0.3);
+    }
+
+    .feature:hover::before {
+      transform: scaleX(1);
+    }
+    
+    .feature i { 
+      font-size: 48px; 
+      margin-bottom: 20px; 
+      background: linear-gradient(45deg, #5E60CE, #64DFDF);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .feature h3 { 
+      margin-bottom: 15px; 
+      font-size: 22px;
+      font-weight: 600;
+    }
+
+    .feature p {
+      color: rgba(255, 255, 255, 0.7);
+      line-height: 1.6;
+    }
+
+    /* Choose Mode Section */
+    .choose-mode { 
+      padding: 100px 20px; 
+      text-align: center;
+    }
+    
+    .choose-mode h2 { 
+      margin-bottom: 50px; 
+      font-size: clamp(32px, 5vw, 48px); 
+      background: linear-gradient(45deg, #5E60CE, #64DFDF);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-weight: 700;
+    }
+    
+    .mode-buttons { 
+      display: flex; 
+      justify-content: center; 
+      gap: 40px; 
+      flex-wrap: wrap; 
+    }
+    
+    .mode-buttons a {
+      padding: 25px 50px; 
+      border-radius: 50px;
+      background: linear-gradient(45deg, #5E60CE 0%, #64DFDF 100%);
+      color: white; 
+      font-size: 20px; 
+      font-weight: 600;
+      transition: all 0.3s ease; 
+      position: relative;
+      overflow: hidden;
+      min-width: 200px;
+    }
+
+    .mode-buttons a::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.5s ease;
+    }
+    
+    .mode-buttons a:hover {
+      transform: translateY(-5px) scale(1.05);
+      box-shadow: 0 25px 50px rgba(100, 223, 223, 0.4);
+    }
+
+    .mode-buttons a:hover::before {
+      left: 100%;
+    }
+
+    /* Team Section */
+    .team-member:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+      border-color: rgba(100, 223, 223, 0.3);
+    }
+
+    .team-member:hover::before {
+      transform: scaleX(1);
+    }
+    
+    .team-member img { 
+      width: 100px; 
+      height: 100px;
+      border-radius: 50%; 
+      margin-bottom: 20px; 
+      border: 3px solid rgba(100, 223, 223, 0.3);
+      transition: all 0.3s ease;
+    }
+
+    .team-member:hover img {
+      border-color: #64DFDF;
+      transform: scale(1.1);
+    }
+    
+    .team-member h3 { 
+      font-size: 20px; 
+      margin-bottom: 10px;
+      font-weight: 600;
+    }
+    
+    .team-member ul {
+      list-style: none;
+      margin-bottom: 20px;
+    }
+
+    .team-member li {
+      font-size: 14px; 
+      color: rgba(255, 255, 255, 0.7); 
+      margin-bottom: 5px;
+      position: relative;
+      padding-left: 15px;
+    }
+
+    .team-member li::before {
+      content: '•';
+      position: absolute;
+      left: 0;
+      color: #64DFDF;
+    }
+    
+    .team-links a { 
+      margin: 0 10px; 
+      font-size: 20px; 
+      color: #64DFDF; 
+      transition: all 0.3s ease;
+      display: inline-block;
+    }
+    
+    .team-links a:hover { 
+      color: #00d4ff; 
+      transform: translateY(-3px);
+    }
+
+    /* FAQ Section */
+    .faq { 
+      padding: 100px 20px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+    .faq h2 { 
+      text-align: center; 
+      font-size: clamp(32px, 5vw, 48px); 
+      margin-bottom: 60px; 
+      background: linear-gradient(45deg, #5E60CE, #64DFDF);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-weight: 700;
+    }
+    
+    .faq-item { 
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(20px);
+      margin-bottom: 20px; 
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .faq-item:hover {
+      border-color: rgba(100, 223, 223, 0.3);
+    }
+    
+    .faq-item h3 { 
+      font-size: 18px; 
+      cursor: pointer; 
+      color: #fff;
+      padding: 25px 30px;
+      margin: 0;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .faq-item h3::after {
+      content: '+';
+      position: absolute;
+      right: 30px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 24px;
+      transition: transform 0.3s ease;
+    }
+
+    .faq-item.active h3::after {
+      transform: translateY(-50%) rotate(45deg);
+    }
+
+    .faq-item h3:hover {
+      color: #64DFDF;
+    }
+    
+    .faq-item p { 
+      display: none; 
+      font-size: 16px; 
+      color: rgba(255, 255, 255, 0.8); 
+      padding: 0 30px 25px;
+      line-height: 1.6;
+    }
+
+    .faq-item.active p {
+      display: block;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Terms Section */
+    .terms { 
+      padding: 80px 20px; 
+      text-align: center;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    
+    .terms h2 { 
+      font-size: clamp(32px, 5vw, 48px); 
+      margin-bottom: 30px; 
+      background: linear-gradient(45deg, #5E60CE, #64DFDF);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-weight: 700;
+    }
+    
+    .terms p { 
+      max-width: 800px; 
+      margin: auto; 
+      font-size: 16px; 
+      color: rgba(255, 255, 255, 0.8); 
+      line-height: 1.8;
+    }
+
+    /* Footer CTA */
+    .footer-cta {
+      background: linear-gradient(135deg, rgba(94, 96, 206, 0.2), rgba(100, 223, 223, 0.2));
+      padding: 80px 20px;
+      text-align: center;
+      border-top: 1px solid rgba(100, 223, 223, 0.3);
+    }
+
+    .footer-cta h2 {
+      font-size: clamp(32px, 5vw, 48px);
+      margin-bottom: 30px;
+      color: #64DFDF;
+      font-weight: 700;
+    }
+
+    .footer-cta-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      flex-wrap: wrap;
+      margin-bottom: 40px;
+    }
+
+    .footer-cta-buttons a {
+      padding: 18px 40px;
+      border-radius: 50px;
+      background: linear-gradient(45deg, #5E60CE, #64DFDF);
+      color: white;
+      font-size: 18px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      display: inline-block;
+    }
+
+    .footer-cta-buttons a:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 25px 50px rgba(100, 223, 223, 0.4);
+    }
+
+    /* Footer */
+    footer {
+      background: rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(20px);
+      color: rgba(255, 255, 255, 0.8); 
+      text-align: center; 
+      padding: 40px 20px; 
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      color: rgba(255, 255, 255, 0.8);
+      transition: all 0.3s ease;
+      font-size: 14px;
+    }
+
+    .footer-links a:hover {
+      color: #64DFDF;
+    }
+    
+    footer .social { 
+      margin-top: 20px; 
+    }
+    
+    footer i { 
+      margin: 0 15px; 
+      font-size: 24px; 
+      color: #64DFDF; 
+      transition: all 0.3s ease;
+      display: inline-block;
+    }
+    
+    footer i:hover { 
+      color: #00d4ff; 
+      transform: translateY(-3px);
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .hero {
+        padding: 120px 20px 80px;
+      }
+
+      .about-container,
+      .feature,
+      .team-member,
+      .faq-item {
+        margin: 0 10px;
+      }
+
+      .mode-buttons {
+        gap: 20px;
+      }
+
+      .mode-buttons a {
+        min-width: auto;
+        padding: 20px 40px;
+      }
+
+      .hero-cta {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .cta-button {
+        width: 200px;
+      }
+
+      .floating-stats {
+        gap: 20px;
+      }
+
+      .stat-item {
+        padding: 15px 20px;
+      }
+
+      .reward-flow {
+        flex-direction: column;
+      }
+
+      .reward-arrow {
+        transform: rotate(90deg);
+      }
+
+      .steps-container {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Scroll Progress Bar -->
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<!-- Glassmorphism Navbar -->
+<header>
+  <div class="logo">CODE SAATHI</div>
+  <i class="fas fa-bars menu-toggle"></i>
+  <ul>
+    <li><a href="login.html">Login</a></li>
+    <li><a href="register.html">Register</a></li>
+    <li><a href="#features">Features</a></li>
+    <li><a href="#about">About</a></li>
+  </ul>
+</header>
+
+<!-- Hero Section with Enhanced Features -->
+<section class="hero">
+  <canvas id="particleCanvas"></canvas>
+  <div class="hero-content" data-aos="fade-up">
+    <h1>CODE SAATHI</h1>
+    <p class="hero-tagline">Where Coders Help Coders — Learn Faster, Earn Smarter 💡</p>
+    <p>Your Journey to Coding Excellence Starts Here</p>
+    
+    <!-- Floating Stats -->
+    <div class="floating-stats">
+      <div class="stat-item" data-aos="fade-up" data-aos-delay="100">
+        <span class="stat-number" data-target="500">0</span><span class="stat-number">+</span>
+        <span class="stat-label">Problems Solved</span>
+      </div>
+      <div class="stat-item" data-aos="fade-up" data-aos-delay="200">
+        <span class="stat-number" data-target="120">0</span><span class="stat-number">+</span>
+        <span class="stat-label">Verified Solvers</span>
+      </div>
+      <div class="stat-item" data-aos="fade-up" data-aos-delay="300">
+        <span class="stat-number" data-target="95">0</span><span class="stat-number">%</span>
+        <span class="stat-label">Success Rate</span>
+      </div>
+    </div>
+    
+    <div class="hero-cta">
+      <button class="cta-button" onclick="window.location.href='asker.html'">Get Help</button>
+      <button class="cta-button secondary" onclick="window.location.href='solver.html'">Become Solver</button>
+    </div>
+  </div>
+</section>
+
+<!-- Live Problem Feed -->
+<section class="live-feed">
+  <div class="feed-ticker" id="feedTicker">
+    <div class="feed-item"><i class="fas fa-code"></i> John posted a Python API issue</div>
+    <div class="feed-item"><i class="fas fa-check-circle"></i> Priya solved a React bug</div>
+    <div class="feed-item"><i class="fas fa-trophy"></i> Arjun earned 50 points 🎉</div>
+    <div class="feed-item"><i class="fas fa-lightbulb"></i> Sarah asked about Node.js deployment</div>
+    <div class="feed-item"><i class="fas fa-star"></i> Mike became a top solver</div>
+    <div class="feed-item"><i class="fas fa-code-branch"></i> Lisa fixed a Git merge conflict</div>
+    <!-- Duplicate for seamless loop -->
+    <div class="feed-item"><i class="fas fa-code"></i> John posted a Python API issue</div>
+    <div class="feed-item"><i class="fas fa-check-circle"></i> Priya solved a React bug</div>
+    <div class="feed-item"><i class="fas fa-trophy"></i> Arjun earned 50 points 🎉</div>
+    <div class="feed-item"><i class="fas fa-lightbulb"></i> Sarah asked about Node.js deployment</div>
+    <div class="feed-item"><i class="fas fa-star"></i> Mike became a top solver</div>
+    <div class="feed-item"><i class="fas fa-code-branch"></i> Lisa fixed a Git merge conflict</div>
+  </div>
+</section>
+
+<!-- How It Works Section -->
+<section class="how-it-works" data-aos="fade-up">
+  <h2>How It Works</h2>
+  <div class="steps-container">
+    <div class="step" data-aos="fade-up" data-aos-delay="100">
+      <div class="step-number">1</div>
+      <i class="fas fa-question-circle"></i>
+      <h3>Ask</h3>
+      <p>Post your coding issue with details. Our community is ready to help you solve any problem.</p>
+    </div>
+    <div class="step" data-aos="fade-up" data-aos-delay="200">
+      <div class="step-number">2</div>
+      <i class="fas fa-code"></i>
+      <h3>Solve</h3>
+      <p>Verified developers review and provide solutions. Get expert guidance from experienced coders.</p>
+    </div>
+    <div class="step" data-aos="fade-up" data-aos-delay="300">
+      <div class="step-number">3</div>
+      <i class="fas fa-coins"></i>
+      <h3>Earn</h3>
+      <p>Learn from solutions and earn rewards. Both askers and solvers grow together in our ecosystem.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Featured Solvers / Leaderboard -->
+<section class="featured-solvers" data-aos="fade-up">
+  <h2>Top Solvers of the Week</h2>
+  <div class="solvers-grid">
+    <div class="solver-card" data-aos="fade-up" data-aos-delay="100">
+      <span class="medal">🥇</span>
+      <div class="solver-avatar">👨‍💻</div>
+      <div class="solver-name">Rajesh Kumar</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Python</span>
+        <span class="skill-tag">Django</span>
+        <span class="skill-tag">API</span>
+      </div>
+      <div class="solver-stats">
+        <div class="stat">
+          <span class="stat-value">156</span>
+          <span class="stat-name">Solutions</span>
+        </div>
+        <div class="stat">
+          <span class="stat-value">4.9</span>
+          <span class="stat-name">Rating</span>
+        </div>
+        <div class="stat">
+          <span class="stat-value">2.5K</span>
+          <span class="stat-name">Points</span>
+        </div>
+      </div>
+    </div>
+    
+    <div class="solver-card" data-aos="fade-up" data-aos-delay="200">
+      <span class="medal">🥈</span>
+      <div class="solver-avatar">👩‍💻</div>
+      <div class="solver-name">Priya Sharma</div>
+      <div class="skill-tags">
+        <span class="skill-tag">React</span>
+        <span class="skill-tag">JavaScript</span>
+        <span class="skill-tag">UI/UX</span>
+      </div>
+      <div class="solver-stats">
+        <div class="stat">
+          <span class="stat-value">142</span>
+          <span class="stat-name">Solutions</span>
+        </div>
+        <div class="stat">
+          <span class="stat-value">4.8</span>
+          <span class="stat-name">Rating</span>
+        </div>
+        <div class="stat">
+          <span class="stat-value">2.2K</span>
+          <span class="stat-name">Points</span>
+        </div>
+      </div>
+    </div>
+    
+    <div class="solver-card" data-aos="fade-up" data-aos-delay="300">
+      <span class="medal">🥉</span>
+      <div class="solver-avatar">👨‍💼</div>
+      <div class="solver-name">Amit Patel</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Java</span>
+        <span class="skill-tag">Spring</span>
+        <span class="skill-tag">Backend</span>
+      </div>
+      <div class="solver-stats">
+        <div class="stat">
+          <span class="stat-value">128</span>
+          <span class="stat-name">Solutions</span>
+        </div>
+        <div class="stat">
+          <span class="stat-value">4.7</span>
+          <span class="stat-name">Rating</span>
+        </div>
+        <div class="stat">
+          <span class="stat-value">1.9K</span>
+          <span class="stat-name">Points</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="view-leaderboard">
+    <a href="#leaderboard">View Full Leaderboard →</a>
+  </div>
+</section>
+
+<!-- Testimonials Section -->
+<section class="testimonials" data-aos="fade-up">
+  <h2>What Our Community Says</h2>
+  <div class="testimonial-slider">
+    <div class="testimonial-track" id="testimonialTrack">
+      <div class="testimonial-card">
+        <p class="testimonial-text">"I fixed my first API bug with help from Code Saathi! The community is incredibly supportive and the solutions are always top-notch. Best learning platform ever!"</p>
+        <p class="testimonial-author">— Ananya Singh, Student</p>
+      </div>
+      <div class="testimonial-card">
+        <p class="testimonial-text">"As a solver, I've earned rewards while helping others. It's amazing to see my skills making a real difference. Code Saathi is a win-win for everyone!"</p>
+        <p class="testimonial-author">— Vikram Mehta, Full-Stack Developer</p>
+      </div>
+      <div class="testimonial-card">
+        <p class="testimonial-text">"The structured learning and instant help made me confident in coding. I went from beginner to building my own projects in just 3 months!"</p>
+        <p class="testimonial-author">— Sneha Reddy, Web Developer</p>
+      </div>
+      <div class="testimonial-card">
+        <p class="testimonial-text">"Code Saathi transformed how I learn. Real problems, real solutions, real growth. The gamification makes it fun and the community makes it memorable!"</p>
+        <p class="testimonial-author">— Rohan Gupta, Software Engineer</p>
+      </div>
+    </div>
+    <div class="slider-dots">
+      <span class="dot active" onclick="goToSlide(0)"></span>
+      <span class="dot" onclick="goToSlide(1)"></span>
+      <span class="dot" onclick="goToSlide(2)"></span>
+      <span class="dot" onclick="goToSlide(3)"></span>
+    </div>
+  </div>
+</section>
+
+<!-- Rewards Showcase Section -->
+<section class="rewards-showcase" data-aos="fade-up">
+  <h2>Earn While You Learn</h2>
+  <div class="reward-flow">
+    <div class="reward-step" data-aos="zoom-in" data-aos-delay="100">
+      <div class="reward-icon">🧩</div>
+      <h3>Solve Problems</h3>
+      <p class="reward-counter" data-target="10">10</p>
+    </div>
+    <div class="reward-arrow">→</div>
+    <div class="reward-step" data-aos="zoom-in" data-aos-delay="200">
+      <div class="reward-icon">💰</div>
+      <h3>Earn Points</h3>
+      <p class="reward-counter" data-target="500">500</p>
+    </div>
+    <div class="reward-arrow">→</div>
+    <div class="reward-step" data-aos="zoom-in" data-aos-delay="300">
+      <div class="reward-icon">🎁</div>
+      <h3>Redeem Rewards</h3>
+      <p>Goodies & More</p>
+    </div>
+  </div>
+</section>
+
+<!-- About Us Section -->
+<section class="about" id="about" data-aos="fade-up">
+  <div class="about-container">
+    <h2>About Us</h2>
+    <div class="about-content">
+      <div class="about-text">
+        <p>
+          Code Saathi is a collaborative platform designed for learners, developers, and problem-solvers. 
+          Our mission is to create a space where individuals can sharpen their coding skills, share knowledge, 
+          and grow together while earning opportunities through their expertise.
+        </p>
+        <p>
+          We believe in the power of community-driven learning, where every question is a stepping stone 
+          and every solution contributes to collective growth.
+        </p>
+      </div>
+      <div class="about-images">
+        <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&h=400&fit=crop" alt="Team Collaboration" loading="lazy">
+        <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=400&h=300&fit=crop" alt="Coding Session" loading="lazy">
+        <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?w=400&h=300&fit=crop" alt="Learning Together" loading="lazy">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Why Code Saathi -->
+<section class="features" id="features" data-aos="fade-up">
+  <h2>Why Code Saathi?</h2>
+  <div class="feature-grid">
+    <div class="feature" data-aos="fade-up" data-aos-delay="100">
+      <i class="fas fa-bolt"></i>
+      <h3>Instant Coding Help</h3>
+      <p>Get fast and reliable solutions to your coding problems whenever you get stuck with expert guidance.</p>
+    </div>
+    <div class="feature" data-aos="fade-up" data-aos-delay="200">
+      <i class="fas fa-users"></i>
+      <h3>Supportive Community</h3>
+      <p>Learn and grow with peers, mentors and experts who guide you throughout your coding journey.</p>
+    </div>
+    <div class="feature" data-aos="fade-up" data-aos-delay="300">
+      <i class="fas fa-book"></i>
+      <h3>Structured Learning Resources</h3>
+      <p>Access step-by-step guides, tutorials and explanations to understand concepts better and faster.</p>
+    </div>
+    <div class="feature" data-aos="fade-up" data-aos-delay="400">
+      <i class="fas fa-briefcase"></i>
+      <h3>Career & Skills Opportunities</h3>
+      <p>Showcase your skills, build real projects and explore opportunities to earn and grow professionally.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Choose Mode -->
+<section class="choose-mode" data-aos="fade-up">
+  <h2>Choose Your Mode</h2>
+  <div class="mode-buttons">
+    <a href="solver.html">🔧 Solver</a>
+    <a href="asker.html">❓ Asker</a>
+  </div>
+</section>
+
+<!-- ================= OUR TEAM SECTION ================= -->
+<section class="team" data-aos="fade-up">
+  <h2>Our Team</h2>
+  <div class="team-grid">
+
+    <div class="team-member" data-aos="fade-up" data-aos-delay="100">
+      <img src="img/rudransh.jpg" alt="Rudransh Tripathi" loading="lazy">
+      <h3>Rudransh Tripathi</h3>
+      <ul>
+        <li>Team Leader & Visionary</li>
+        <li>Layout Design for Website</li>
+        <li>Database and GitHub</li>
+        <li>Project Monitoring</li>
+      </ul>
+      <div class="team-links">
+        <a href="https://www.linkedin.com/in/rudransh-tripathi-3856a1332" target="_blank"><i class="fab fa-linkedin"></i></a>
+        <a href="mailto:2k24.cs1n.2413163@gmail.com"><i class="fas fa-envelope"></i></a>
+      </div>
+    </div>
+
+    <div class="team-member" data-aos="fade-up" data-aos-delay="200">
+      <img src="img/saumitra.jpg" alt="Saumitra Rawat" loading="lazy">
+      <h3>Saumitra Rawat</h3>
+      <ul>
+        <li>Homepage Design</li>
+        <li>Logo Creation and PPT</li>
+        <li>Template Design and Layout</li>
+      </ul>
+      <div class="team-links">
+        <a href="https://www.linkedin.com/in/saumitra-rawat-5b73b9343" target="_blank"><i class="fab fa-linkedin"></i></a>
+        <a href="mailto:2k24.cs1n.2411012@gmail.com"><i class="fas fa-envelope"></i></a>
+      </div>
+    </div>
+
+    <div class="team-member" data-aos="fade-up" data-aos-delay="300">
+      <img src="img/saurabh.jpg" alt="Saurabh Kumar" loading="lazy">
+      <h3>Saurabh Kumar</h3>
+      <ul>
+        <li>Login & Sign Up Page</li>
+        <li>Help in Database</li>
+        <li>Monitoring Other Work</li>
+      </ul>
+      <div class="team-links">
+        <a href="https://www.linkedin.com/in/saurabh-kumar-840677322" target="_blank"><i class="fab fa-linkedin"></i></a>
+        <a href="mailto:2k24.cs1n.2413493@gmail.com"><i class="fas fa-envelope"></i></a>
+      </div>
+    </div>
+
+    <div class="team-member" data-aos="fade-up" data-aos-delay="400">
+      <img src="img/satyam2.png" alt="Satyam Pal" loading="lazy">
+      <h3>Satyam Pal</h3>
+      <ul>
+        <li>Suggestion & Supervision</li>
+        <li>Resource Providing</li>
+        <li>Payment Page</li>
+        <li>Collaborative Skills</li>
+      </ul>
+      <div class="team-links">
+        <a href="https://www.linkedin.com/in/satyam-pal" target="_blank"><i class="fab fa-linkedin"></i></a>
+        <a href="mailto:2k24.cs1n.2414061@gmail.com"><i class="fas fa-envelope"></i></a>
+      </div>
+    </div>
+
+    <div class="team-member" data-aos="fade-up" data-aos-delay="500">
+      <img src="img/salini.jpg" alt="Shalini Bajpai" loading="lazy">
+      <h3>Shalini Bajpai</h3>
+      <ul>
+        <li>Resource Allocation</li>
+        <li>Asker Page Developer</li>
+        <li>Passionate & Hardworking</li>
+      </ul>
+      <div class="team-links">
+        <a href="https://www.linkedin.com/in/shalini-bajpai-657b90342" target="_blank"><i class="fab fa-linkedin"></i></a>
+        <a href="mailto:2k24.cs1n.2414169@gmail.com"><i class="fas fa-envelope"></i></a>
+      </div>
+    </div>
+
+    <div class="team-member" data-aos="fade-up" data-aos-delay="600">
+      <img src="img/rupesh.jpg" alt="Rupesh Kumar" loading="lazy">
+      <h3>Rupesh Kumar</h3>
+      <ul>
+        <li>Code Integration</li>
+        <li>Header/Footer Development</li>
+        <li>SQL & Database</li>
+      </ul>
+      <div class="team-links">
+        <a href="https://www.linkedin.com/in/rupesh-kumar-733b67341" target="_blank"><i class="fab fa-linkedin"></i></a>
+        <a href="mailto:2k24.cs1n.2410767@gmail.com"><i class="fas fa-envelope"></i></a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ================= TEAM SECTION CSS ================= -->
+<style>
+.team {
+  text-align: center;
+  padding: 80px 50px;
+  background: radial-gradient(circle at top left, #0b0f28, #05061a);
+  color: #fff;
+}
+
+.team h2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 50px;
+  color: #fff;
+  text-shadow: 0 0 10px rgba(0, 123, 255, 0.3);
+}
+
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 35px;
+  justify-content: center;
+}
+
+.team-member {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 20px;
+  padding: 30px 20px;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
+}
+
+.team-member:hover {
+  transform: translateY(-8px);
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 0 20px rgba(0, 136, 255, 0.3);
+}
+
+.team-member img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 3px solid #007bff;
+  margin-bottom: 15px;
+  object-fit: cover;
+}
+
+.team-member h3 {
+  font-size: 1.2rem;
+  margin-bottom: 15px;
+  color: #fff;
+  font-weight: 600;
+}
+
+.team-member ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 15px;
+  color: #ccc;
+}
+
+.team-member ul li {
+  margin: 5px 0;
+  font-size: 0.95rem;
+}
+
+.team-links {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.team-links a {
+  color: #007bff;
+  font-size: 1.2rem;
+  transition: color 0.3s ease;
+}
+
+.team-links a:hover {
+  color: #00d4ff;
+}
+
+/* Optional Hover Glow on Photo */
+.team-member img:hover {
+  box-shadow: 0 0 20px #007bff;
+}
+</style>
+
+
+<!-- FAQ Section -->
+<section class="faq" data-aos="fade-up">
+  <h2>Frequently Asked Questions</h2>
+  
+  <div class="faq-item">
+    <h3>What is Code Saathi?</h3>
+    <p>Code Saathi is a platform where you can learn, earn, and grow by solving coding problems together with a supportive community of developers and learners.</p>
+  </div>
+  
+  <div class="faq-item">
+    <h3>How do I register?</h3>
+    <p>You can create an account using the signup option at the top of the page. Simply provide your details and start your coding journey with us.</p>
+  </div>
+  
+  <div class="faq-item">
+    <h3>Is Code Saathi free?</h3>
+    <p>Yes, basic features are completely free! We believe in making quality education accessible. Premium tools and advanced features may come later.</p>
+  </div>
+  
+  <div class="faq-item">
+    <h3>Can I earn through this platform?</h3>
+    <p>Absolutely! By solving problems, contributing to the community, and showcasing your skills, you can unlock various earning opportunities.</p>
+  </div>
+  
+  <div class="faq-item">
+    <h3>Do I need prior experience?</h3>
+    <p>Not at all! Beginners are welcome and encouraged. You'll learn and grow with guidance from peers and experienced developers in our community.</p>
+  </div>
+</section>
+
+<!-- Terms & Conditions -->
+<section class="terms" data-aos="fade-up">
+  <h2>Terms & Conditions</h2>
+  <p>
+    By using Code Saathi, you agree to engage respectfully with our community and maintain the highest standards of integrity. 
+    Sharing harmful, plagiarized, or inappropriate content is strictly prohibited. All opportunities earned through the platform 
+    must be completed with honesty and dedication. We reserve the right to update these terms as needed to ensure the best 
+    experience for all users. Together, we build a better coding community.
+  </p>
+</section>
+
+<!-- Footer CTA -->
+<section class="footer-cta" data-aos="fade-up">
+  <h2>Ready to Code, Solve, and Grow?</h2>
+  <p style="margin-bottom: 30px; color: rgba(255, 255, 255, 0.8); font-size: 18px;">Join thousands of developers learning and earning together</p>
+  <div class="footer-cta-buttons">
+    <a href="asker.html">Join as Asker</a>
+    <a href="solver.html">Join as Solver</a>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-links">
+    <a href="#about">About Us</a>
+    <a href="#team">Team</a>
+    <a href="#features">Community</a>
+    <a href="mailto:contact@codesaathi.com">Contact</a>
+  </div>
+  <p>© 2025 Code Saathi. All Rights Reserved. Built with ❤️ for developers.</p>
+  <div class="social">
+    <a href="#"><i class="fab fa-facebook"></i></a>
+    <a href="#"><i class="fab fa-twitter"></i></a>
+    <a href="#"><i class="fab fa-linkedin"></i></a>
+    <a href="#"><i class="fab fa-github"></i></a>
+  </div>
+</footer>
+
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+  // Initialize AOS (Animate On Scroll)
+  AOS.init({
+    duration: 800,
+    easing: 'ease-in-out',
+    once: true,
+    offset: 100
+  });
+
+  // Scroll Progress Bar
+  window.addEventListener('scroll', () => {
+    const scrollProgress = document.getElementById('scrollProgress');
+    const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+    const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const scrollPercent = (scrollTop / scrollHeight) * 100;
+    scrollProgress.style.width = scrollPercent + '%';
+  });
+
+  // Particle Animation System
+  const canvas = document.getElementById('particleCanvas');
+  const ctx = canvas.getContext('2d');
+  
+  let particles = [];
+  let mouse = { x: 0, y: 0 };
+  
+  function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = document.querySelector('.hero').offsetHeight;
+  }
+  
+  resizeCanvas();
+  window.addEventListener('resize', resizeCanvas);
+  
+  // Mouse tracking
+  document.addEventListener('mousemove', (e) => {
+    mouse.x = e.clientX;
+    mouse.y = e.clientY;
+  });
+  
+  // Particle class
+  class Particle {
+    constructor() {
+      this.x = Math.random() * canvas.width;
+      this.y = Math.random() * canvas.height;
+      this.size = Math.random() * 3 + 1;
+      this.speedX = Math.random() * 3 - 1.5;
+      this.speedY = Math.random() * 3 - 1.5;
+      this.color = `hsl(${Math.random() * 60 + 220}, 70%, 60%)`;
+      this.opacity = Math.random() * 0.5 + 0.2;
+    }
+    
+    update() {
+      this.x += this.speedX;
+      this.y += this.speedY;
+      
+      // Boundary check
+      if (this.x > canvas.width || this.x < 0) this.speedX *= -1;
+      if (this.y > canvas.height || this.y < 0) this.speedY *= -1;
+      
+      // Mouse interaction
+      const dx = mouse.x - this.x;
+      const dy = mouse.y - this.y;
+      const distance = Math.sqrt(dx * dx + dy * dy);
+      
+      if (distance < 100) {
+        this.x -= dx * 0.01;
+        this.y -= dy * 0.01;
+      }
+    }
+    
+    draw() {
+      ctx.save();
+      ctx.globalAlpha = this.opacity;
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+      ctx.fillStyle = this.color;
+      ctx.fill();
+      ctx.restore();
+    }
+  }
+  
+  // Initialize particles
+  function initParticles() {
+    particles = [];
+    const particleCount = Math.min(100, Math.floor(canvas.width * canvas.height / 8000));
+    
+    for (let i = 0; i < particleCount; i++) {
+      particles.push(new Particle());
+    }
+  }
+  
+  // Draw connections between particles
+  function drawConnections() {
+    for (let i = 0; i < particles.length; i++) {
+      for (let j = i + 1; j < particles.length; j++) {
+        const dx = particles[i].x - particles[j].x;
+        const dy = particles[i].y - particles[j].y;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+        
+        if (distance < 150) {
+          ctx.save();
+          ctx.globalAlpha = (150 - distance) / 150 * 0.2;
+          ctx.beginPath();
+          ctx.moveTo(particles[i].x, particles[i].y);
+          ctx.lineTo(particles[j].x, particles[j].y);
+          ctx.strokeStyle = '#5E60CE';
+          ctx.lineWidth = 1;
+          ctx.stroke();
+          ctx.restore();
+        }
+      }
+    }
+  }
+  
+  // Animation loop
+  function animate() {
+    ctx.fillStyle = 'rgba(26, 26, 46, 0.1)';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    
+    drawConnections();
+    
+    particles.forEach(particle => {
+      particle.update();
+      particle.draw();
+    });
+    
+    requestAnimationFrame(animate);
+  }
+  
+  initParticles();
+  animate();
+  
+  // Reinitialize particles on resize
+  window.addEventListener('resize', () => {
+    setTimeout(initParticles, 100);
+  });
+
+  // Animated Counter for Stats
+  function animateCounter(element, target, duration = 2000) {
+    const start = 0;
+    const increment = target / (duration / 16);
+    let current = start;
+    
+    const timer = setInterval(() => {
+      current += increment;
+      if (current >= target) {
+        element.textContent = Math.floor(target);
+        clearInterval(timer);
+      } else {
+        element.textContent = Math.floor(current);
+      }
+    }, 16);
+  }
+
+  // Trigger counter animation when stats become visible
+  const observerOptions = {
+    threshold: 0.5,
+    rootMargin: '0px'
+  };
+
+  const statsObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && !entry.target.classList.contains('animated')) {
+        const target = parseInt(entry.target.getAttribute('data-target'));
+        animateCounter(entry.target, target);
+        entry.target.classList.add('animated');
+      }
+    });
+  }, observerOptions);
+
+  document.querySelectorAll('.stat-number[data-target], .reward-counter[data-target]').forEach(el => {
+    statsObserver.observe(el);
+  });
+
+  // Testimonial Slider
+  let currentSlide = 0;
+  const testimonialTrack = document.getElementById('testimonialTrack');
+  const dots = document.querySelectorAll('.dot');
+  const totalSlides = 4;
+
+  function goToSlide(index) {
+    currentSlide = index;
+    testimonialTrack.style.transform = `translateX(-${currentSlide * 100}%)`;
+    
+    dots.forEach((dot, i) => {
+      dot.classList.toggle('active', i === currentSlide);
+    });
+  }
+
+  // Auto-advance testimonials
+  setInterval(() => {
+    currentSlide = (currentSlide + 1) % totalSlides;
+    goToSlide(currentSlide);
+  }, 5000);
+
+  // FAQ Toggle Animation
+  document.querySelectorAll('.faq-item h3').forEach(question => {
+    question.addEventListener('click', () => {
+      const faqItem = question.parentElement;
+      const answer = question.nextElementSibling;
+      
+      // Close other FAQ items
+      document.querySelectorAll('.faq-item').forEach(item => {
+        if (item !== faqItem && item.classList.contains('active')) {
+          item.classList.remove('active');
+          item.querySelector('p').style.display = 'none';
+        }
+      });
+      
+      // Toggle current FAQ item
+      faqItem.classList.toggle('active');
+      
+      if (faqItem.classList.contains('active')) {
+        answer.style.display = 'block';
+      } else {
+        answer.style.display = 'none';
+      }
+    });
+  });
+
+  // Mobile Navigation Toggle
+  document.querySelector('.menu-toggle').addEventListener('click', () => {
+    document.querySelector('header ul').classList.toggle('active');
+  });
+
+  // Smooth Scrolling for Navigation Links
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        target.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+        // Close mobile menu if open
+        document.querySelector('header ul').classList.remove('active');
+      }
+    });
+  });
+
+  // Header background on scroll
+  window.addEventListener('scroll', () => {
+    const header = document.querySelector('header');
+    if (window.scrollY > 100) {
+      header.style.background = 'rgba(13, 13, 26, 0.95)';
+    } else {
+      header.style.background = 'rgba(255, 255, 255, 0.1)';
+    }
+  });
+
+  // Loading animation for CTA buttons
+  document.querySelectorAll('.cta-button').forEach(button => {
+    button.addEventListener('click', function(e) {
+      // Only prevent default if it's not being redirected
+      if (!this.hasAttribute('onclick')) {
+        e.preventDefault();
+      }
+      
+      const originalText = this.textContent;
+      this.textContent = 'Loading...';
+      this.style.pointerEvents = 'none';
+      
+      setTimeout(() => {
+        this.textContent = originalText;
+        this.style.pointerEvents = 'auto';
+      }, 1000);
+    });
+  });
+
+  // Parallax effect for hero section
+  window.addEventListener('scroll', () => {
+    const scrolled = window.pageYOffset;
+    const hero = document.querySelector('.hero-content');
+    if (hero && scrolled < window.innerHeight) {
+      const parallax = scrolled * 0.3;
+      hero.style.transform = `translateY(${parallax}px)`;
+    }
+  });
+
+  // Dynamic gradient animation
+  let gradientAngle = 135;
+  setInterval(() => {
+    gradientAngle = (gradientAngle + 0.5) % 360;
+    document.body.style.background = `linear-gradient(${gradientAngle}deg, #0d0d1a 0%, #1a0d2e 50%, #16213e 100%)`;
+  }, 100);
+
+  // Console welcome message
+  console.log(`
+  🚀 Welcome to Code Saathi Developer Console!
+  
+  ┌───────────────────────────────────┐
+  │  Built with modern web technologies │
+  │  • Glassmorphism UI                 │
+  │  • Particle Animation System       │
+  │  • AOS Scroll Animations            │
+  │  • Responsive Design                │
+  │  • Interactive Elements             │
+  │  • Counter Animations              │
+  │  • Testimonial Slider              │
+  └───────────────────────────────────┘
+  
+  Happy coding! 💻✨
+  `);
+
+  // Add smooth reveal animations on load
+  window.addEventListener('load', () => {
+    document.querySelector('.hero-content').style.opacity = '1';
+  });
+</script>
+
+</body>
+</html>
+

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Register • CodeSathi</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    /* NOTE: This CSS intentionally mirrors the login page look (neon, glass-card, animated background).
+       For brevity I include the core register-specific rules — reuse the exact global styles from your login file.
+       If you already use the login CSS created earlier, you can reuse it. */
+    :root{ --bg:#0b0f14; --brand:#18e67a; --muted:#9fb0bf; --card:#0e1420; --radius:18px; }
+    *{box-sizing:border-box} body{margin:0;font-family:Inter,system-ui;-webkit-font-smoothing:antialiased;background:linear-gradient(180deg,#070b10 0%,#09101a 100%);color:#e9f6ef;min-height:100vh}
+    .wrap{display:grid;grid-template-columns:1.1fr .9fr;height:100vh}
+    @media(max-width:992px){.wrap{grid-template-columns:1fr}}
+    .hero{padding:5vmin;display:flex;align-items:center}
+    .card{width:min(540px,92vw);margin:auto;background:linear-gradient(180deg,#0e1420cc,#08121a);border-radius:var(--radius);padding:26px;border:1px solid rgba(30,40,55,.7);box-shadow:0 18px 40px rgba(0,0,0,.55)}
+    .brand{display:flex;align-items:center;gap:.8rem}
+    .brand .logo{width:40px;height:40px;border-radius:10px;background:conic-gradient(#18e67a,#00f)}
+    h2{margin:6px 0 10px;font-size:1.4rem}
+    form{display:grid;gap:12px}
+    .input{background:#07121a;padding:12px;border-radius:12px;border:1px solid rgba(30,40,55,.6);display:flex;gap:10px;align-items:center}
+    .input input{all:unset;color:inherit;flex:1}
+    .role-toggle{display:grid;grid-template-columns:1fr 1fr;background:#07121a;padding:6px;border-radius:12px;border:1px solid rgba(30,40,55,.6);position:relative}
+    .role-toggle label{cursor:pointer;text-align:center;padding:10px;font-weight:700;color:#9fe6c8}
+    .slider{position:absolute;left:6px;top:6px;bottom:6px;width:calc(50% - 6px);background:linear-gradient(90deg,#153,#0c5);border-radius:10px;transition:transform .25s}
+    #role-solver:checked ~ .slider{transform:translateX(100%)}
+    .btn{border-radius:12px;padding:12px;font-weight:800;border:none;cursor:pointer;background:linear-gradient(180deg,#19e57a,#00bd4a);color:#042514}
+    .small{font-size:.9rem;color:var(--muted)}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <aside class="hero">
+      <div style="max-width:720px;margin:auto">
+        <span style="display:inline-block;padding:.35rem .7rem;border-radius:999px;background:#07121a;border:1px solid rgba(20,40,30,.5);color:#9fe6c8;font-weight:700">Create account</span>
+        <h1 style="font-size:2.4rem;margin:.7rem 0 0">Join <span style="background:linear-gradient(90deg,#18e67a,#b4ffd9);-webkit-background-clip:text;background-clip:text;color:transparent">CodeSathi</span></h1>
+        <p class="small">Register as an Asker or a Solver. We will verify your mobile using an OTP.</p>
+      </div>
+    </aside>
+
+    <main style="display:flex;align-items:center;justify-content:center;padding:4vmin">
+      <div class="card">
+        <div class="brand">
+          <div class="logo"></div>
+          <div style="font-weight:800">CodeSathi</div>
+        </div>
+
+        <h2>Create your account</h2>
+        <form id="regForm" autocomplete="off">
+          <div>
+            <label class="small">Full name</label>
+            <div class="input"><input id="name" name="name" type="text" placeholder="Your full name" required></div>
+          </div>
+
+          <div>
+            <label class="small">Email</label>
+            <div class="input"><input id="email" name="email" type="email" placeholder="you@example.com" required></div>
+          </div>
+
+          <div>
+            <label class="small">Phone (E.164 preferred)</label>
+            <div class="input"><input id="phone" name="phone" type="tel" placeholder="+91xxxxxxxxxx" required></div>
+            <div class="small" style="margin-top:6px;color:#98b7a8">We'll send an OTP for verification.</div>
+          </div>
+
+          <div>
+            <label class="small">Choose password</label>
+            <div class="input"><input id="password" name="password" type="password" placeholder="Create a password" minlength="6" required></div>
+          </div>
+
+          <div>
+            <label class="small">Register as</label>
+            <div class="role-toggle" style="position:relative;">
+              <input type="radio" id="role-asker" name="role" value="asker" checked style="display:none">
+              <label for="role-asker">Asker</label>
+              <input type="radio" id="role-solver" name="role" value="solver" style="display:none">
+              <label for="role-solver">Solver</label>
+              <div class="slider" aria-hidden="true"></div>
+            </div>
+          </div>
+
+          <div style="display:flex;gap:12px;align-items:center;margin-top:6px">
+            <button class="btn" id="registerBtn" type="submit">Register & Send OTP</button>
+            <div class="small" style="opacity:.9">Already a member? <a href="login.html" style="color:#9fe6c8">Log in</a></div>
+          </div>
+
+          <div id="regMsg" class="small" style="margin-top:10px;color:#9fb0bf"></div>
+        </form>
+      </div>
+    </main>
+  </div>
+
+<script>
+  // Client-side register flow:
+  document.getElementById('regForm').addEventListener('submit', async (e)=>{
+    e.preventDefault();
+    const btn = document.getElementById('registerBtn');
+    btn.disabled = true; btn.textContent = 'Sending OTP...';
+
+    const payload = {
+      name: document.getElementById('name').value.trim(),
+      email: document.getElementById('email').value.trim(),
+      phone: document.getElementById('phone').value.trim(),
+      password: document.getElementById('password').value,
+      role: document.querySelector('input[name="role"]:checked').value
+    };
+
+    try {
+      // call your server endpoint that triggers OTP send
+      const res = await fetch('/api/register', {
+        method: 'POST',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify(payload)
+      });
+      const j = await res.json();
+      if(res.ok && j.success){
+        // Save temporary registration in sessionStorage for verify page
+        sessionStorage.setItem('pendingUser', JSON.stringify({ phone: payload.phone, name: payload.name, email: payload.email, role: payload.role }));
+        // redirect to verify page
+        window.location.href = 'verify-otp.html';
+      } else {
+        document.getElementById('regMsg').textContent = j.message || 'Could not send OTP. Try again.';
+        btn.disabled = false; btn.textContent = 'Register & Send OTP';
+      }
+    } catch(err){
+      console.error(err);
+      document.getElementById('regMsg').textContent = 'Network error — try again.';
+      btn.disabled = false; btn.textContent = 'Register & Send OTP';
+    }
+  });
+</script>
+</body>
+</html>

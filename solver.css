@@ -1,0 +1,815 @@
+/* ===================================================================
+   CodeSathi + DevSolve — Solver Page Theme (extended)
+   File: solver.css
+   Purpose:
+   - Keep original project styles intact
+   - Add/override UI for hero, cards, filters, info modal, payment modal
+   - Provide utility classes, dark theme, animations, responsive rules
+   =================================================================== */
+
+/* -----------------------------
+   0) CSS Variables & Resets
+------------------------------ */
+:root {
+  /* Brand & palette */
+  --cs-primary: #4f46e5;           /* indigo-600 */
+  --cs-primary-500: #6366f1;       /* indigo-500 */
+  --cs-primary-700: #4338ca;       /* indigo-700 */
+  --cs-accent: #10b981;            /* emerald-500 (CTA) */
+  --cs-accent-600: #059669;        /* emerald-600 */
+  --cs-danger: #ef4444;            /* red-500 */
+  --cs-danger-600: #dc2626;        /* red-600 */
+  --cs-warning: #f59e0b;           /* amber-500 */
+  --cs-info: #0ea5e9;              /* sky-500 */
+  --cs-surface: #ffffff;
+  --cs-soft: #f5f7ff;
+  --cs-soft-2: #f9fafb;
+  --cs-muted: #6b7280;
+  --cs-text: #111827;
+  --cs-border: #e5e7eb;
+  --cs-shadow: 0 8px 24px rgba(0,0,0,.06);
+  --cs-ring: 0 0 0 4px rgba(79,70,229,.15);
+
+  /* Radii & spacing */
+  --cs-radius-sm: 8px;
+  --cs-radius: 12px;
+  --cs-radius-lg: 14px;
+  --cs-radius-xl: 20px;
+  --cs-pad: 16px;
+  --cs-gap: 16px;
+
+  /* Typography */
+  --cs-font: "Inter", "Segoe UI", Roboto, system-ui, -apple-system, Arial, sans-serif;
+}
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--cs-font);
+  color: var(--cs-text);
+  background: var(--cs-soft-2);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Link defaults */
+a { color: var(--cs-primary); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* Focus visible */
+:where(button, a, input, select, textarea):focus-visible {
+  outline: none;
+  box-shadow: var(--cs-ring);
+  border-radius: var(--cs-radius-sm);
+}
+
+/* -----------------------------
+   1) Containers & Utilities
+------------------------------ */
+.container { max-width: 1120px; margin-inline: auto; padding-inline: 16px; }
+.section { padding-block: 56px; }
+.center { text-align: center; }
+.muted, .cs-muted { color: var(--cs-muted); }
+.hidden { display: none !important; }
+.full { width: 100%; }
+.nowrap { white-space: nowrap; }
+
+.cs-grid { display: grid; gap: var(--cs-gap); }
+.cs-grid-2 { grid-template-columns: repeat(2, minmax(0,1fr)); }
+.cs-grid-3 { grid-template-columns: repeat(3, minmax(0,1fr)); }
+.cs-grid-auto { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+
+.cs-card {
+  background: var(--cs-surface);
+  border: 1px solid var(--cs-border);
+  border-radius: var(--cs-radius-lg);
+  padding: var(--cs-pad);
+  box-shadow: var(--cs-shadow);
+}
+
+.cs-chip {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  background: #eef2ff;
+  color: #3730a3;
+  line-height: 1;
+}
+
+.chip {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  background: #eef2ff;
+  color: #4338ca;
+  line-height: 1;
+}
+
+/* Pills & badges */
+.cs-pill {
+  display: inline-block;
+  background: #eef2ff;
+  color: #3730a3;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-weight: 700;
+  letter-spacing: .2px;
+}
+
+/* Difficulty tags (kept naming) */
+.cTag { padding: 4px 10px; border-radius: 999px; font-size: 12px; line-height: 1; }
+.c-easy   { background: #ecfdf5; color: #065f46; }
+.c-medium { background: #fffbeb; color: #92400e; }
+.c-hard   { background: #fef2f2; color: #991b1b; }
+
+/* Divider */
+.cs-divider { height: 1px; background: var(--cs-border); margin-block: 24px; }
+
+/* Shadows helpers */
+.shadow-sm { box-shadow: 0 2px 8px rgba(0,0,0,.05); }
+.shadow-md { box-shadow: 0 8px 24px rgba(0,0,0,.08); }
+.shadow-lg { box-shadow: 0 18px 50px rgba(0,0,0,.12); }
+
+/* Hover rises */
+.hover-rise { transition: transform .25s ease, box-shadow .25s ease; }
+.hover-rise:hover { transform: translateY(-2px); box-shadow: var(--cs-shadow); }
+
+/* -----------------------------
+   2) Header & Navigation
+------------------------------ */
+.main-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: #fff;
+  border-bottom: 1px solid #eef2ff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 20px;
+}
+
+.brand { display: flex; align-items: center; gap: 10px; font-weight: 800; }
+.brand .logo-text { letter-spacing: .2px; }
+
+.nav-links a { margin: 0 10px; color: #111; text-decoration: none; }
+.nav-links .btn { margin-left: 8px; }
+
+/* Hamburger */
+.hamburger {
+  width: 38px; height: 38px; border-radius: 999px;
+  border: 1px solid var(--cs-border);
+  display: none; align-items: center; justify-content: center;
+  background: #fff; cursor: pointer;
+}
+.hamburger span { display: block; width: 18px; height: 2px; background: #111; margin: 3px 0; }
+
+/* Mobile drawer (structure exists in HTML) */
+.mobile-drawer {
+  position: fixed; inset: 0 0 0 auto; width: 78%;
+  background: #fff; box-shadow: -10px 0 30px rgba(0,0,0,.15);
+  transform: translateX(100%); transition: transform .3s ease;
+  padding: 18px; z-index: 60;
+}
+.mobile-drawer.open { transform: translateX(0); }
+.drawer-link { display: block; padding: 10px 0; color: #111; }
+.drawer-actions { margin-top: 16px; display: grid; gap: 10px; }
+
+@media (max-width: 960px) {
+  .nav-links { display: none; }
+  .hamburger { display: inline-flex; }
+}
+
+/* -----------------------------
+   3) Buttons (base + variants)
+------------------------------ */
+.btn,
+.cs-btn {
+  border: 0;
+  border-radius: var(--cs-radius-sm);
+  padding: 10px 16px;
+  cursor: pointer;
+  font-weight: 700;
+  transition: transform .08s ease, box-shadow .2s ease, background .2s ease, color .2s ease;
+  user-select: none;
+}
+
+.btn:active,
+.cs-btn:active { transform: translateY(1px); }
+
+.btn.small { padding: 8px 12px; font-weight: 600; }
+.btn-outline,
+.cs-btn-outline {
+  background: #fff;
+  border: 1px solid var(--cs-border);
+  color: #111;
+}
+.btn-outline:hover,
+.cs-btn-outline:hover { box-shadow: var(--cs-ring); }
+
+.cs-btn-primary { background: var(--cs-primary); color: #fff; }
+.cs-btn-primary:hover { background: var(--cs-primary-500); }
+
+.btn.accept { background: var(--cs-accent); color: #fff; }
+.btn.accept:hover { background: var(--cs-accent-600); }
+
+.btn.info { background: var(--cs-primary); color: #fff; }
+.btn.info:hover { background: var(--cs-primary-700); }
+
+.btn.btn-outline.reject {
+  border: 1px solid #fecaca; color: #991b1b; background: #fff;
+}
+.btn.btn-outline.reject:hover { background: #fff5f5; }
+
+/* Ghost link-like button */
+.btn-link {
+  background: transparent;
+  border: 0;
+  color: var(--cs-primary);
+  padding: 0;
+}
+.btn-link:hover { text-decoration: underline; }
+
+/* -----------------------------
+   4) Hero (upgraded banner)
+------------------------------ */
+.hero {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, #1e293b 0%, #0f172a 40%, #0b1020 100%);
+  min-height: 360px;
+  display: flex;
+  align-items: center;
+}
+.hero::before {
+  content: "";
+  position: absolute; inset: 0;
+  background:
+    url('https://images.unsplash.com/photo-1518779578993-ec3579fee39f?q=80&w=2000&auto=format&fit=crop')
+    center/cover no-repeat;
+  opacity: .35; mix-blend: screen;
+}
+.hero-inner { position: relative; z-index: 2; }
+.hero-title {
+  color: #fff; font-size: clamp(32px, 5vw, 44px);
+  letter-spacing: .4px; margin: 6px 0 8px; font-weight: 800;
+}
+.hero-sub { color: #c7d2fe; margin: 0 0 20px; max-width: 56ch; }
+.hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+.hero .cs-btn-primary { background: var(--cs-accent); }
+.hero .cs-btn-outline {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,.35);
+  color: #fff;
+}
+.hero-diag {
+  position: absolute; left: -10%; right: -10%; bottom: -50px; height: 120px;
+  background: #fff; transform: rotate(-4deg);
+  box-shadow: 0 -30px 60px rgba(0,0,0,.15)
+}
+
+@media (max-width: 680px) {
+  .hero { min-height: 320px; }
+  .hero-diag { height: 90px; bottom: -38px; }
+}
+
+/* -----------------------------
+   5) Available Problems (cards)
+------------------------------ */
+.section-title { font-size: 24px; margin-bottom: 16px; }
+.problem-list .card {
+  display: flex; flex-direction: column; gap: 10px; padding: 16px;
+}
+.problem-list h3 { margin: 0; }
+.card-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+
+/* -----------------------------
+   6) Dashboard: filters + requests
+------------------------------ */
+.dashboard {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 24px;
+}
+@media (max-width: 980px) { .dashboard { grid-template-columns: 1fr; } }
+
+/* Filters */
+.filters { padding: 18px; }
+.filters input,
+.filters select {
+  width: 100%; padding: 10px;
+  border: 1px solid var(--cs-border);
+  border-radius: var(--cs-radius-sm);
+  margin-bottom: 12px;
+  background: #fff;
+}
+.filters input:focus,
+.filters select:focus {
+  box-shadow: var(--cs-ring);
+}
+.switch { display: flex; align-items: center; gap: 8px; margin: 10px 0; }
+.switch input { width: 18px; height: 18px; }
+
+/* Requests list */
+.requests { display: flex; flex-direction: column; gap: 14px; }
+.request-card {
+  display: grid;
+  grid-template-columns: 1fr 420px 220px;
+  gap: 18px;
+  padding: 16px;
+  align-items: center;
+  border: 1px solid var(--cs-border);
+  border-radius: var(--cs-radius-lg);
+  background: #fff;
+  box-shadow: var(--cs-shadow);
+  animation: fadeInUp .35s ease both;
+}
+.req-main h3 { margin: 0 0 6px; font-size: 18px; }
+.req-main .muted { color: var(--cs-muted); }
+.req-meta strong { display: block; font-size: 18px; }
+.skill-group .chip { margin-right: 6px; }
+.req-actions .btn { border-radius: 10px; padding: 10px 14px; }
+
+@media (max-width: 1100px) {
+  .request-card { grid-template-columns: 1fr; gap: 10px; }
+  .req-meta { display: flex; flex-wrap: wrap; gap: 16px; }
+  .req-actions { display: flex; gap: 8px; }
+}
+
+/* Applicants badge */
+.apps {
+  display: inline-block;
+  background: #f3f4f6;
+  border-radius: 999px;
+  padding: 2px 8px;
+  font-size: 12px;
+  color: #374151;
+}
+
+/* -----------------------------
+   7) Payment Modal (existing)
+------------------------------ */
+.modal {
+  position: fixed; inset: 0;
+  display: none; align-items: center; justify-content: center;
+  background: rgba(0,0,0,.45); z-index: 80;
+}
+.modal.show { display: flex; }
+
+.modal-card {
+  width: min(680px, 92vw);
+  background: #fff;
+  border-radius: 16px;
+  padding: 20px;
+  position: relative;
+  box-shadow: 0 30px 80px rgba(0,0,0,.25);
+  animation: scaleIn .18s ease both;
+}
+.modal-close {
+  position: absolute; right: 12px; top: 8px;
+  border: 0; background: transparent; font-size: 28px; cursor: pointer;
+}
+.fake-form input {
+  width: 100%; padding: 10px;
+  border: 1px solid var(--cs-border);
+  border-radius: 10px;
+}
+
+/* -----------------------------
+   8) Info Modal (new)
+------------------------------ */
+.info-row {
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+.info-row strong { color: #374151; }
+.file-list {
+  display: flex; flex-wrap: wrap; gap: 10px;
+}
+.file-list a {
+  display: inline-flex; align-items: center; gap: 8px;
+  text-decoration: none;
+}
+
+/* Download button style inside info modal */
+.file-list .cs-btn-outline {
+  padding: 8px 12px;
+  border-radius: 10px;
+  border: 1px solid var(--cs-border);
+  background: #fff;
+  color: #111;
+}
+.file-list .cs-btn-outline:hover { box-shadow: var(--cs-ring); }
+
+/* -----------------------------
+   9) FAQ
+------------------------------ */
+#faq details {
+  border: 1px solid var(--cs-border);
+  border-radius: var(--cs-radius-lg);
+  padding: 14px;
+  background: #fff;
+}
+#faq details + details { margin-top: 10px; }
+#faq summary { cursor: pointer; font-weight: 700; }
+
+/* -----------------------------
+   10) Footer
+------------------------------ */
+.footer {
+  text-align: center;
+  padding: 22px;
+  background: #0f172a;
+  color: #e5e7eb;
+}
+.footer a { color: #c7d2fe; }
+.footer a:hover { text-decoration: underline; }
+
+/* -----------------------------
+   11) Animations
+------------------------------ */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from { transform: scale(.98); opacity: 0; }
+  to   { transform: scale(1);   opacity: 1; }
+}
+
+/* Attention pulse for urgent chips */
+@keyframes pulseUrgent {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, .35); }
+  50%      { box-shadow: 0 0 0 8px rgba(239, 68, 68, 0); }
+}
+.chip.urgent {
+  background: #fee2e2;
+  color: #991b1b;
+  animation: pulseUrgent 1.8s infinite;
+}
+
+/* -----------------------------
+   12) Tables (future-proof)
+------------------------------ */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  border-radius: var(--cs-radius-lg);
+  overflow: hidden;
+  box-shadow: var(--cs-shadow);
+}
+.table thead th {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: #6b7280;
+  background: #f8fafc;
+  padding: 12px;
+  border-bottom: 1px solid var(--cs-border);
+}
+.table tbody td {
+  padding: 14px 12px;
+  border-bottom: 1px solid #f1f5f9;
+}
+.table tbody tr:hover { background: #f8fafc; }
+
+/* -----------------------------
+   13) Forms (future-proof)
+------------------------------ */
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.form-row .field { display: grid; gap: 6px; }
+.input,
+select,
+textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--cs-border);
+  border-radius: var(--cs-radius-sm);
+  background: #fff;
+  font: inherit;
+}
+textarea { min-height: 120px; resize: vertical; }
+.input:focus, select:focus, textarea:focus { box-shadow: var(--cs-ring); }
+
+/* -----------------------------
+   14) Status Sidebar (asker page parity)
+------------------------------ */
+.task-status {
+  list-style: none;
+  margin: 0; padding: 0;
+}
+.task-status li {
+  background: #f9fafb;
+  border: 1px solid var(--cs-border);
+  padding: 10px 12px;
+  border-radius: 10px;
+  display: flex; align-items: center; gap: 10px;
+  color: #334155;
+}
+.task-status li + li { margin-top: 8px; }
+.task-status li.active {
+  border-color: #bfdbfe;
+  background: #eff6ff;
+  font-weight: 700;
+}
+.badge {
+  display: inline-block;
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: #e5e7eb;
+  color: #111827;
+}
+
+/* -----------------------------
+   15) Toast (optional helper)
+------------------------------ */
+.toast {
+  position: fixed;
+  right: 16px; bottom: 16px;
+  background: #111827; color: #fff;
+  padding: 12px 14px;
+  border-radius: 10px;
+  box-shadow: 0 15px 40px rgba(0,0,0,.25);
+  opacity: 0; transform: translateY(8px);
+  pointer-events: none;
+  transition: all .25s ease;
+  z-index: 120;
+}
+.toast.show { opacity: 1; transform: translateY(0); pointer-events: auto; }
+
+/* -----------------------------
+   16) Badges by severity
+------------------------------ */
+.badge-success { background: #ecfdf5; color: #065f46; }
+.badge-warning { background: #fffbeb; color: #92400e; }
+.badge-danger  { background: #fef2f2; color: #991b1b; }
+.badge-info    { background: #eff6ff; color: #1d4ed8; }
+
+/* -----------------------------
+   17) Cards: hover outlines
+------------------------------ */
+.outline-hover {
+  border: 1px solid var(--cs-border);
+  transition: border-color .2s ease, box-shadow .2s ease;
+}
+.outline-hover:hover {
+  border-color: #c7d2fe;
+  box-shadow: 0 10px 26px rgba(79,70,229,.12);
+}
+
+/* -----------------------------
+   18) Helper: visually hidden
+------------------------------ */
+.visually-hidden {
+  position: absolute !important;
+  height: 1px; width: 1px;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+  white-space: nowrap; /* or nowrap */
+}
+
+/* -----------------------------
+   19) Tags cloud (skills)
+------------------------------ */
+.tags { display: flex; flex-wrap: wrap; gap: 8px; }
+.tags .chip { background: #eef2ff; color: #3730a3; }
+.tags .chip:nth-child(odd) { background: #e0f2fe; color: #075985; }
+
+/* -----------------------------
+   20) Price & Deadline labels
+------------------------------ */
+.price {
+  font-weight: 800;
+  letter-spacing: .2px;
+}
+.deadline {
+  font-weight: 700;
+  color: #1f2937;
+}
+.deadline.expired { color: #dc2626; }
+
+/* -----------------------------
+   21) Responsive tweaks
+------------------------------ */
+@media (max-width: 1280px) {
+  .container { max-width: 1000px; }
+}
+
+@media (max-width: 1024px) {
+  .request-card { padding: 14px; }
+}
+
+@media (max-width: 768px) {
+  .form-row { grid-template-columns: 1fr; }
+  .info-row { grid-template-columns: 1fr; }
+  .hero-actions { gap: 10px; }
+  .section { padding-block: 44px; }
+  .problem-list .card { padding: 14px; }
+}
+
+@media (max-width: 420px) {
+  .btn.small { padding: 7px 10px; }
+  .cs-chip, .chip { font-size: 11px; padding: 3px 8px; }
+  .request-card { border-radius: 12px; }
+}
+
+/* -----------------------------
+   22) Dark Theme (opt-in using body.dark)
+------------------------------ */
+body.dark {
+  --cs-surface: #0b1220;
+  --cs-soft: #0d1426;
+  --cs-soft-2: #0a0f1e;
+  --cs-text: #e5e7eb;
+  --cs-muted: #9aa3b2;
+  --cs-border: #1f2a44;
+  background: var(--cs-soft-2);
+  color: var(--cs-text);
+}
+
+body.dark .main-header { background: #0b1220; border-bottom-color: #121c33; }
+body.dark .nav-links a { color: #e5e7eb; }
+body.dark .mobile-drawer { background: #0b1220; color: #e5e7eb; }
+
+body.dark .cs-card,
+body.dark #faq details,
+body.dark .filters,
+body.dark .request-card,
+body.dark .table,
+body.dark .modal-card {
+  background: #0d1426;
+  border-color: #1f2a44;
+  color: #e5e7eb;
+}
+
+body.dark .hero { background: linear-gradient(135deg, #0b1020 0%, #080d1a 40%, #060a14 100%); }
+body.dark .hero::before { opacity: .28; }
+
+body.dark .filters input,
+body.dark .filters select,
+body.dark .input,
+body.dark select,
+body.dark textarea,
+body.dark .fake-form input {
+  background: #0b1220;
+  color: #e5e7eb;
+  border-color: #1f2a44;
+}
+
+body.dark .btn-outline,
+body.dark .cs-btn-outline,
+body.dark .file-list .cs-btn-outline {
+  background: transparent;
+  color: #e5e7eb;
+  border-color: #223055;
+}
+
+body.dark .apps { background: #0b1220; color: #e5e7eb; }
+
+body.dark .footer { background: #050914; color: #b9c0cf; }
+body.dark .footer a { color: #93c5fd; }
+
+body.dark .cs-divider { background: #1f2a44; }
+
+body.dark .c-easy   { background: #06281f; color: #a7f3d0; }
+body.dark .c-medium { background: #2c2301; color: #fde68a; }
+body.dark .c-hard   { background: #2a0a0a; color: #fecaca; }
+
+body.dark .chip { background: #1a2444; color: #c7d2fe; }
+body.dark .cs-chip { background: #1a2444; color: #c7d2fe; }
+
+/* -----------------------------
+   23) Print styles (safe)
+------------------------------ */
+@media print {
+  .main-header, .mobile-drawer, .hero-diag, .hero-actions, .req-actions,
+  .modal, .footer { display: none !important; }
+  body { background: #fff; color: #000; }
+  .request-card, .cs-card, #faq details { border: 1px solid #000; box-shadow: none; }
+}
+
+/* -----------------------------
+   24) Extra: tooltips (optional)
+------------------------------ */
+.tooltip {
+  position: relative;
+  cursor: help;
+}
+.tooltip:hover::after {
+  content: attr(data-tip);
+  position: absolute;
+  left: 50%; bottom: calc(100% + 8px);
+  transform: translateX(-50%);
+  background: #111827;
+  color: #fff;
+  font-size: 12px;
+  padding: 6px 8px;
+  border-radius: 6px;
+  white-space: nowrap;
+  box-shadow: 0 10px 20px rgba(0,0,0,.18);
+  z-index: 10;
+}
+.tooltip:hover::before {
+  content: "";
+  position: absolute;
+  left: 50%; bottom: 100%;
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-top-color: #111827;
+}
+
+/* -----------------------------
+   25) Progress dots (optional)
+------------------------------ */
+.stepper {
+  display: flex; gap: 12px; align-items: center;
+}
+.stepper .dot {
+  width: 8px; height: 8px; border-radius: 999px;
+  background: #cbd5e1;
+}
+.stepper .dot.active { background: var(--cs-primary); }
+.stepper .bar {
+  height: 2px; width: 24px; background: #cbd5e1;
+}
+.stepper .bar.active { background: var(--cs-primary); }
+
+/* -----------------------------
+   26) Fancy check list (optional)
+------------------------------ */
+.bullets { padding-left: 0; list-style: none; }
+.bullets li {
+  position: relative; padding-left: 26px; margin: 8px 0; color: #374151;
+}
+.bullets li::before {
+  content: "✔"; position: absolute; left: 0; top: 0;
+  color: var(--cs-accent); font-weight: 800;
+}
+
+/* -----------------------------
+   27) Hero subtitle small badge
+------------------------------ */
+.hero .cs-pill {
+  background: rgba(99, 102, 241, .18);
+  color: #e0e7ff;
+}
+
+/* -----------------------------
+   28) Link button variant (used in file list)
+------------------------------ */
+.btn-download {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 8px 12px;
+  border-radius: 10px;
+  border: 1px solid var(--cs-border);
+  background: #fff; color: #111;
+  text-decoration: none;
+  transition: box-shadow .2s ease;
+}
+.btn-download:hover { box-shadow: var(--cs-ring); }
+
+body.dark .btn-download {
+  background: #0b1220; color: #e5e7eb; border-color: #223055;
+}
+
+/* -----------------------------
+   29) Nav pills (unused but handy)
+------------------------------ */
+.nav-pills {
+  display: inline-flex; gap: 10px; background: #eef2ff;
+  padding: 6px; border-radius: 999px;
+}
+.nav-pills .pill {
+  padding: 6px 12px; border-radius: 999px;
+  font-weight: 700; color: #3730a3; cursor: pointer;
+}
+.nav-pills .pill.active {
+  background: #4f46e5; color: #fff;
+}
+
+/* -----------------------------
+   30) Compact badges row
+------------------------------ */
+.metaRow {
+  display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+}
+
+/* End of solver.css — happy shipping! */

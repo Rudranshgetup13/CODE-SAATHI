@@ -1,0 +1,1249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>CodeSathi • Revolutionary Developer Platform</title>
+  <meta name="description" content="Where developers solve real problems and earn while learning"/>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+    :root {
+      --bg-primary: #0a0a0f;
+      --bg-secondary: #12121a;
+      --bg-tertiary: #1a1a2e;
+      --surface: rgba(26, 26, 46, 0.8);
+      --glass: rgba(255, 255, 255, 0.03);
+      --glass-hover: rgba(255, 255, 255, 0.08);
+      --glass-border: rgba(255, 255, 255, 0.06);
+      
+      --primary: #6366f1;
+      --secondary: #06b6d4;
+      --accent-purple: #8b5cf6;
+      --accent-pink: #ec4899;
+      --accent-green: #10b981;
+      --accent-orange: #f59e0b;
+      
+      --gradient-primary: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #ec4899 100%);
+      --gradient-secondary: linear-gradient(135deg, #06b6d4 0%, #3b82f6 100%);
+      --gradient-surface: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.02) 100%);
+      
+      --text-primary: #f8fafc;
+      --text-secondary: #cbd5e1;
+      --text-muted: #64748b;
+      
+      --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+      --shadow-xl: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
+      --shadow-neon: 0 0 20px rgba(99, 102, 241, 0.3);
+      
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-xl: 20px;
+      --radius-full: 9999px;
+      
+      --transition-fast: 0.15s ease-out;
+      --transition-normal: 0.3s ease-out;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: 
+        radial-gradient(ellipse at top left, rgba(99, 102, 241, 0.1) 0%, transparent 50%),
+        radial-gradient(ellipse at bottom right, rgba(139, 92, 246, 0.08) 0%, transparent 50%),
+        linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+      color: var(--text-primary);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Animated Background */
+    #bgCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      opacity: 0.4;
+    }
+
+    /* Header */
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(20px);
+      background: rgba(10, 10, 15, 0.9);
+      border-bottom: 1px solid var(--glass-border);
+      padding: 1rem 0;
+    }
+
+    .header-content {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2rem;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .logo {
+      width: 48px;
+      height: 48px;
+      border-radius: var(--radius-md);
+      background: var(--gradient-primary);
+      display: grid;
+      place-items: center;
+      color: white;
+      font-size: 1.5rem;
+      font-weight: 800;
+      box-shadow: var(--shadow-neon);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    .nav-link {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-weight: 500;
+      padding: 0.5rem 1rem;
+      border-radius: var(--radius-md);
+      transition: all var(--transition-fast);
+    }
+
+    .nav-link.active {
+      color: var(--text-primary);
+      background: var(--glass);
+    }
+
+    .btn {
+      padding: 0.75rem 1.5rem;
+      border-radius: var(--radius-md);
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      transition: all var(--transition-normal);
+      font-family: inherit;
+    }
+
+    .btn-primary {
+      background: var(--gradient-primary);
+      color: white;
+      box-shadow: var(--shadow-neon);
+    }
+
+    .btn-ghost {
+      background: var(--glass);
+      color: var(--text-primary);
+      border: 1px solid var(--glass-border);
+    }
+
+    /* Hero Section - Post Problem */
+    .hero-section {
+      background: 
+        linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(139, 92, 246, 0.05) 100%),
+        var(--bg-secondary);
+      padding: 4rem 2rem;
+      text-align: center;
+      border-bottom: 1px solid var(--glass-border);
+    }
+
+    .hero-content {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .hero-title {
+      font-size: 3rem;
+      font-weight: 900;
+      background: var(--gradient-primary);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 1rem;
+    }
+
+    .hero-subtitle {
+      font-size: 1.25rem;
+      color: var(--text-secondary);
+      margin-bottom: 2rem;
+      line-height: 1.6;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* How Developer Page Works Section */
+    .how-it-works {
+      padding: 5rem 2rem;
+      background: var(--bg-primary);
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .section-title {
+      font-size: 2.5rem;
+      font-weight: 800;
+      text-align: center;
+      margin-bottom: 4rem;
+      background: var(--gradient-primary);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      margin-bottom: 4rem;
+    }
+
+    .step-card {
+      background: var(--gradient-surface);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-xl);
+      padding: 2rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      transition: all var(--transition-normal);
+    }
+
+    .step-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: var(--gradient-primary);
+    }
+
+    .step-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-xl);
+    }
+
+    .step-number {
+      width: 60px;
+      height: 60px;
+      border-radius: var(--radius-full);
+      background: var(--gradient-primary);
+      display: grid;
+      place-items: center;
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: white;
+      margin: 0 auto 1.5rem;
+      box-shadow: var(--shadow-neon);
+    }
+
+    .step-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      color: var(--text-primary);
+    }
+
+    .step-description {
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    /* Why DevSathi Section */
+    .why-section {
+      padding: 5rem 2rem;
+      background: var(--bg-secondary);
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-bottom: 3rem;
+    }
+
+    .feature-card {
+      background: var(--gradient-surface);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      transition: all var(--transition-normal);
+    }
+
+    .feature-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .feature-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: var(--radius-md);
+      margin-bottom: 1rem;
+      display: grid;
+      place-items: center;
+      font-size: 1.5rem;
+    }
+
+    .feature-icon.problems { background: linear-gradient(135deg, var(--accent-green), #22c55e); }
+    .feature-icon.matching { background: linear-gradient(135deg, var(--accent-purple), #a855f7); }
+    .feature-icon.learning { background: linear-gradient(135deg, var(--accent-orange), #fbbf24); }
+    .feature-icon.ratings { background: linear-gradient(135deg, var(--accent-pink), #f472b6); }
+    .feature-icon.community { background: linear-gradient(135deg, var(--secondary), #0891b2); }
+
+    .feature-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      color: var(--text-primary);
+    }
+
+    .feature-description {
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    /* Problems Showcase */
+    .problems-showcase {
+      padding: 5rem 2rem;
+      background: var(--bg-primary);
+    }
+
+    .showcase-content {
+      display: grid;
+      grid-template-columns: 300px 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+
+    /* Filter Sidebar */
+    .filter-sidebar {
+      background: var(--gradient-surface);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-xl);
+      padding: 2rem;
+      position: sticky;
+      top: 2rem;
+    }
+
+    .filter-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      color: var(--text-primary);
+    }
+
+    .filter-group {
+      margin-bottom: 2rem;
+    }
+
+    .filter-label {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 0.75rem;
+      display: block;
+    }
+
+    .filter-input {
+      width: 100%;
+      padding: 0.75rem;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--glass-border);
+      background: var(--glass);
+      color: var(--text-primary);
+      font-size: 0.875rem;
+    }
+
+    .complexity-filters {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .complexity-filter {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: background var(--transition-fast);
+    }
+
+    .complexity-filter:hover {
+      background: var(--glass);
+    }
+
+    .filter-apply {
+      width: 100%;
+      padding: 1rem;
+      background: var(--gradient-primary);
+      color: white;
+      border: none;
+      border-radius: var(--radius-md);
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 1rem;
+    }
+
+    /* Problems Grid */
+    .problems-main {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .problem-card {
+      background: var(--gradient-surface);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      display: grid;
+      grid-template-columns: 2fr 1fr 120px 120px 120px;
+      gap: 2rem;
+      align-items: center;
+      transition: all var(--transition-normal);
+    }
+
+    .problem-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+      border-color: var(--glass-hover);
+    }
+
+    .problem-info h3 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 0.5rem;
+    }
+
+    .problem-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .tag {
+      background: rgba(99, 102, 241, 0.1);
+      color: var(--primary);
+      padding: 0.25rem 0.75rem;
+      border-radius: var(--radius-full);
+      font-size: 0.75rem;
+      font-weight: 500;
+    }
+
+    .problem-description {
+      color: var(--text-secondary);
+      font-size: 0.875rem;
+      line-height: 1.5;
+    }
+
+    .problem-budget {
+      text-align: center;
+    }
+
+    .budget-label {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-bottom: 0.25rem;
+    }
+
+    .budget-amount {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--accent-green);
+    }
+
+    .problem-time {
+      text-align: center;
+    }
+
+    .time-label {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-bottom: 0.25rem;
+    }
+
+    .time-value {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .problem-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .btn-small {
+      padding: 0.5rem 1rem;
+      border-radius: var(--radius-md);
+      font-size: 0.875rem;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+
+    .btn-accept {
+      background: var(--accent-green);
+      color: white;
+    }
+
+    .btn-view {
+      background: var(--glass);
+      color: var(--text-primary);
+      border: 1px solid var(--glass-border);
+    }
+
+    .btn-bid {
+      background: var(--gradient-primary);
+      color: white;
+    }
+
+    /* Pricing Section */
+    .pricing-section {
+      padding: 5rem 2rem;
+      background: var(--bg-secondary);
+    }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .pricing-card {
+      background: var(--gradient-surface);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-xl);
+      padding: 2.5rem;
+      text-align: center;
+      position: relative;
+      transition: all var(--transition-normal);
+    }
+
+    .pricing-card.popular {
+      border: 2px solid var(--primary);
+      transform: scale(1.05);
+    }
+
+    .pricing-card.popular::before {
+      content: 'Most Popular';
+      position: absolute;
+      top: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--gradient-primary);
+      color: white;
+      padding: 0.5rem 1.5rem;
+      border-radius: var(--radius-full);
+      font-size: 0.75rem;
+      font-weight: 700;
+    }
+
+    .pricing-title {
+      font-size: 1.5rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+      color: var(--text-primary);
+    }
+
+    .pricing-price {
+      font-size: 3rem;
+      font-weight: 900;
+      background: var(--gradient-primary);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 2rem;
+    }
+
+    .pricing-features {
+      list-style: none;
+      margin-bottom: 2rem;
+      text-align: left;
+    }
+
+    .pricing-features li {
+      padding: 0.75rem 0;
+      border-bottom: 1px solid var(--glass-border);
+      color: var(--text-secondary);
+    }
+
+    .pricing-features li:last-child {
+      border-bottom: none;
+    }
+
+    /* FAQ Section */
+    .faq-section {
+      padding: 5rem 2rem;
+      background: var(--bg-primary);
+    }
+
+    .faq-container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .faq-item {
+      background: var(--gradient-surface);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-lg);
+      margin-bottom: 1rem;
+      overflow: hidden;
+    }
+
+    .faq-question {
+      width: 100%;
+      padding: 1.5rem;
+      background: none;
+      border: none;
+      text-align: left;
+      color: var(--text-primary);
+      font-size: 1.125rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .faq-answer {
+      padding: 0 1.5rem 1.5rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      display: none;
+    }
+
+    .faq-item.active .faq-answer {
+      display: block;
+    }
+
+    /* Footer */
+    .footer {
+      background: var(--bg-secondary);
+      border-top: 1px solid var(--glass-border);
+      padding: 3rem 2rem 1rem;
+      text-align: center;
+      color: var(--text-muted);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 1200px) {
+      .showcase-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+      
+      .filter-sidebar {
+        position: static;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .hero-title {
+        font-size: 2rem;
+      }
+      
+      .steps-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .problem-card {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+      
+      .header-content {
+        padding: 0 1rem;
+      }
+      
+      .nav {
+        display: none;
+      }
+    }
+
+    /* Animations */
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .floating {
+      animation: float 6s ease-in-out infinite;
+    }
+
+    @keyframes glow {
+      0%, 100% { box-shadow: var(--shadow-neon); }
+      50% { box-shadow: 0 0 30px rgba(99, 102, 241, 0.6); }
+    }
+
+    .logo {
+      animation: glow 3s ease-in-out infinite;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="bgCanvas"></canvas>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="header-content">
+      <div class="brand">
+        <div class="logo">CS</div>
+        <div>
+          <h1 style="font-size: 1.25rem; margin: 0;">CodeSathi</h1>
+          <p style="font-size: 0.75rem; color: var(--text-muted); margin: 0;">Developer Platform</p>
+        </div>
+      </div>
+      
+      <nav class="nav">
+        <a href="#problems" class="nav-link">Problems</a>
+        <a href="#pricing" class="nav-link">Pricing</a>
+        <a href="#contact" class="nav-link">Contact</a>
+        <a href="#dashboard" class="nav-link active">Dashboard</a>
+      </nav>
+      
+      <div style="display: flex; gap: 1rem; align-items: center;">
+        <button class="btn btn-ghost">Log In</button>
+        <button class="btn btn-primary">Sign Up</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section - Post Problem -->
+  <section class="hero-section">
+    <div class="hero-content">
+      <h1 class="hero-title">Post Your Coding Problem</h1>
+      <p class="hero-subtitle">
+        Describe it. Attach files, set a budget — we'll match the right developer.
+      </p>
+      <div class="hero-actions">
+        <button class="btn btn-primary" style="font-size: 1.125rem; padding: 1rem 2rem;">Get Started</button>
+        <button class="btn btn-ghost" style="font-size: 1.125rem; padding: 1rem 2rem;">Browse Problems</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- How Developer Page Works -->
+  <section class="how-it-works">
+    <div class="container">
+      <h2 class="section-title">How the Developer Page Works</h2>
+      <div class="steps-grid">
+        <div class="step-card">
+          <div class="step-number">1</div>
+          <h3 class="step-title">Browse Requests</h3>
+          <p class="step-description">
+            Discover coding problems posted by users. Filter by skills and check budgets.
+          </p>
+        </div>
+        
+        <div class="step-card">
+          <div class="step-number">2</div>
+          <h3 class="step-title">Apply & Get Selected</h3>
+          <p class="step-description">
+            Apply to tasks that match your skills and timeline. Users shortlist based on your profile and skills.
+          </p>
+        </div>
+        
+        <div class="step-card">
+          <div class="step-number">3</div>
+          <h3 class="step-title">Solve & Deliver</h3>
+          <p class="step-description">
+            Work on selected projects, deliver deliverables and communicate with the requester securely.
+          </p>
+        </div>
+        
+        <div class="step-card">
+          <div class="step-number">4</div>
+          <h3 class="step-title">Earn & Build Reputation</h3>
+          <p class="step-description">
+            Receive payment after approval and problem completion. Build ongoing relationships with every problem you solve.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why DevSathi Section -->
+  <section class="why-section">
+    <div class="container">
+      <h2 class="section-title">Why DevSathi?</h2>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon problems">🔥</div>
+          <h3 class="feature-title">Real Problems</h3>
+          <p class="feature-description">
+            Access real-world coding tasks, not dummy assignments.
+          </p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon matching">🎯</div>
+          <h3 class="feature-title">Skill-based Matching</h3>
+          <p class="feature-description">
+            Filter problems by your strongest tech stack for faster matching.
+          </p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon learning">📚</div>
+          <h3 class="feature-title">Earn While Learning</h3>
+          <p class="feature-description">
+            Developers get paid while sharpening coding skills on real challenges.
+          </p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon ratings">⭐</div>
+          <h3 class="feature-title">Trusted Ratings</h3>
+          <p class="feature-description">
+            Track performance with transparent ratings and feedback.
+          </p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon community">👥</div>
+          <h3 class="feature-title">Developer Community</h3>
+          <p class="feature-description">
+            Be part of a growing network of solvers & innovators.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Problems Showcase -->
+  <section class="problems-showcase">
+    <div class="container">
+      <h2 class="section-title">Browse Available Problems</h2>
+      <div class="showcase-content">
+        <!-- Filter Sidebar -->
+        <aside class="filter-sidebar">
+          <h3 class="filter-title">Filter Requests</h3>
+          
+          <div class="filter-group">
+            <label class="filter-label">Quick Filter</label>
+            <input type="text" class="filter-input" placeholder="Filter by Required Skill">
+          </div>
+          
+          <div class="filter-group">
+            <label class="filter-label">Sort Price</label>
+            <select class="filter-input">
+              <option>Sort Deadline</option>
+              <option>Price: High to Low</option>
+              <option>Price: Low to High</option>
+              <option>Newest First</option>
+            </select>
+          </div>
+          
+          <div class="filter-group">
+            <label class="filter-label">Complexity</label>
+            <div class="complexity-filters">
+              <label class="complexity-filter">
+                <input type="checkbox" checked> From Only Urgent
+              </label>
+            </div>
+          </div>
+          
+          <button class="filter-apply">Apply</button>
+        </aside>
+
+        <!-- Problems List -->
+        <main class="problems-main">
+          <!-- Problem 1 -->
+          <div class="problem-card">
+            <div class="problem-info">
+              <h3>Build a Portfolio Website</h3>
+              <div class="problem-tags">
+                <span class="tag">Responsive</span>
+                <span class="tag">Next.js</span>
+                <span class="tag">Tailwind</span>
+              </div>
+              <p class="problem-description">
+                Responsive React-based website with animations.
+              </p>
+            </div>
+            
+            <div class="problem-budget">
+              <div class="budget-label">Budget</div>
+              <div class="budget-amount">₹20</div>
+            </div>
+            
+            <div class="problem-time">
+              <div class="time-label">Time left</div>
+              <div class="time-value">12min</div>
+            </div>
+            
+            <div class="problem-actions">
+              <button class="btn-small btn-accept">Accept</button>
+              <button class="btn-small btn-view">Report</button>
+              <button class="btn-small btn-bid">Bid</button>
+            </div>
+          </div>
+
+          <!-- Problem 3 -->
+          <div class="problem-card">
+            <div class="problem-info">
+              <h3>Secure REST API</h3>
+              <div class="problem-tags">
+                <span class="tag">JWT-auth</span>
+                <span class="tag">Node</span>
+                <span class="tag">Express</span>
+                <span class="tag">MongoDB</span>
+              </div>
+              <p class="problem-description">
+                API secured with JWT, MongoDB.
+              </p>
+            </div>
+            
+            <div class="problem-budget">
+              <div class="budget-label">Budget</div>
+              <div class="budget-amount">₹10</div>
+            </div>
+            
+            <div class="problem-time">
+              <div class="time-label">Time left</div>
+              <div class="time-value">10min</div>
+            </div>
+            
+            <div class="problem-actions">
+              <button class="btn-small btn-accept">Accept</button>
+              <button class="btn-small btn-view">Report</button>
+              <button class="btn-small btn-bid">Bid</button>
+            </div>
+          </div>
+
+          <!-- Problem 4 -->
+          <div class="problem-card">
+            <div class="problem-info">
+              <h3>AI Chatbot Integration</h3>
+              <div class="problem-tags">
+                <span class="tag">Machine</span>
+                <span class="tag">Learning</span>
+                <span class="tag">Python</span>
+                <span class="tag">TensorFlow</span>
+              </div>
+              <p class="problem-description">
+                Integrate ML chatbot with existing app.
+              </p>
+            </div>
+            
+            <div class="problem-budget">
+              <div class="budget-label">Budget</div>
+              <div class="budget-amount">₹59</div>
+            </div>
+            
+            <div class="problem-time">
+              <div class="time-label">Time left</div>
+              <div class="time-value">1.5hour</div>
+            </div>
+            
+            <div class="problem-actions">
+              <button class="btn-small btn-accept">Accept</button>
+              <button class="btn-small btn-view">Report</button>
+              <button class="btn-small btn-bid">Bid</button>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing Section -->
+  <section class="pricing-section">
+    <div class="container">
+      <h2 class="section-title">Pricing Plans</h2>
+      <div class="pricing-grid">
+        <div class="pricing-card">
+          <h3 class="pricing-title">Basic</h3>
+          <div class="pricing-price">Free</div>
+          <ul class="pricing-features">
+            <li>✓ Simple fees and debugging</li>
+            <li>✓ Access to basic problems</li>
+            <li>✓ Community support</li>
+            <li>✗ Priority support</li>
+            <li>✗ Advanced features</li>
+          </ul>
+          <button class="btn btn-ghost" style="width: 100%;">Choose Plan</button>
+        </div>
+
+        <div class="pricing-card popular">
+          <h3 class="pricing-title">Standard</h3>
+          <div class="pricing-price">₹49</div>
+          <ul class="pricing-features">
+            <li>✓ Feature additions and full fixes</li>
+            <li>✓ Access to premium problems</li>
+            <li>✓ Priority matching</li>
+            <li>✓ Advanced analytics</li>
+            <li>✓ Email support</li>
+          </ul>
+          <button class="btn btn-primary" style="width: 100%;">Choose Plan</button>
+        </div>
+
+        <div class="pricing-card">
+          <h3 class="pricing-title">Premium</h3>
+          <div class="pricing-price">₹99</div>
+          <ul class="pricing-features">
+            <li>✓ Complete builds and full stacks</li>
+            <li>✓ Exclusive enterprise problems</li>
+            <li>✓ Direct client communication</li>
+            <li>✓ Custom project rates</li>
+            <li>✓ 24/7 priority support</li>
+          </ul>
+          <button class="btn btn-primary" style="width: 100%;">Choose Plan</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="faq-section">
+    <div class="container">
+      <h2 class="section-title">Frequently Asked Questions</h2>
+      <div class="faq-container">
+        <div class="faq-item">
+          <button class="faq-question">
+            How do payments work?
+            <span>+</span>
+          </button>
+          <div class="faq-answer">
+            Funds are held in escrow and released on approval of milestone completion.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            Can I negotiate prices?
+            <span>+</span>
+          </button>
+          <div class="faq-answer">
+            Yes, you can discuss and negotiate pricing with clients before accepting projects.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            What if I'm stuck?
+            <span>+</span>
+          </button>
+          <div class="faq-answer">
+            Our community and support team are available to help you overcome technical challenges.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p>Made with ❤️ by CodeSathi Team</p>
+      <p style="margin-top: 0.5rem;">Contact us at codesathi@gmail.com</p>
+      <p style="margin-top: 1rem; font-size: 0.875rem;">© 2025 CodeSathi. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Animated Background Canvas
+    const canvas = document.getElementById('bgCanvas');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+    let animationId;
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+
+    function createParticles() {
+      particles = [];
+      const particleCount = Math.min(80, Math.floor((canvas.width * canvas.height) / 15000));
+      
+      for (let i = 0; i < particleCount; i++) {
+        particles.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          vx: (Math.random() - 0.5) * 0.8,
+          vy: (Math.random() - 0.5) * 0.8,
+          radius: Math.random() * 2 + 1,
+          hue: Math.random() * 60 + 220, // Blue to purple range
+          brightness: Math.random() * 100 + 50
+        });
+      }
+    }
+
+    function drawParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      
+      // Draw connections
+      for (let i = 0; i < particles.length; i++) {
+        for (let j = i + 1; j < particles.length; j++) {
+          const dx = particles[i].x - particles[j].x;
+          const dy = particles[i].y - particles[j].y;
+          const distance = Math.sqrt(dx * dx + dy * dy);
+          
+          if (distance < 120) {
+            const opacity = (120 - distance) / 120 * 0.3;
+            const gradient = ctx.createLinearGradient(
+              particles[i].x, particles[i].y,
+              particles[j].x, particles[j].y
+            );
+            gradient.addColorStop(0, `hsla(${particles[i].hue}, 70%, 60%, ${opacity})`);
+            gradient.addColorStop(1, `hsla(${particles[j].hue}, 70%, 60%, ${opacity})`);
+            
+            ctx.strokeStyle = gradient;
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.stroke();
+          }
+        }
+      }
+      
+      // Draw particles
+      particles.forEach(particle => {
+        ctx.beginPath();
+        ctx.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
+        
+        const gradient = ctx.createRadialGradient(
+          particle.x, particle.y, 0,
+          particle.x, particle.y, particle.radius * 3
+        );
+        gradient.addColorStop(0, `hsla(${particle.hue}, 70%, ${particle.brightness}%, 0.8)`);
+        gradient.addColorStop(1, `hsla(${particle.hue}, 70%, ${particle.brightness}%, 0)`);
+        
+        ctx.fillStyle = gradient;
+        ctx.fill();
+        
+        // Update position
+        particle.x += particle.vx;
+        particle.y += particle.vy;
+        
+        // Bounce off edges
+        if (particle.x < 0 || particle.x > canvas.width) particle.vx *= -1;
+        if (particle.y < 0 || particle.y > canvas.height) particle.vy *= -1;
+        
+        // Keep within bounds
+        particle.x = Math.max(0, Math.min(canvas.width, particle.x));
+        particle.y = Math.max(0, Math.min(canvas.height, particle.y));
+      });
+    }
+
+    function animate() {
+      drawParticles();
+      animationId = requestAnimationFrame(animate);
+    }
+
+    function init() {
+      resizeCanvas();
+      createParticles();
+      animate();
+    }
+
+    // FAQ Toggle
+    document.querySelectorAll('.faq-question').forEach(question => {
+      question.addEventListener('click', () => {
+        const faqItem = question.parentNode;
+        const isActive = faqItem.classList.contains('active');
+        
+        // Close all FAQ items
+        document.querySelectorAll('.faq-item').forEach(item => {
+          item.classList.remove('active');
+          item.querySelector('.faq-question span').textContent = '+';
+        });
+        
+        // Open clicked item if it wasn't active
+        if (!isActive) {
+          faqItem.classList.add('active');
+          question.querySelector('span').textContent = '−';
+        }
+      });
+    });
+
+    // Smooth scrolling for navigation
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+
+    // Initialize
+    window.addEventListener('load', init);
+    window.addEventListener('resize', () => {
+      cancelAnimationFrame(animationId);
+      init();
+    });
+
+    // Add intersection observer for animations
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, observerOptions);
+
+    // Observe elements for animation
+    document.querySelectorAll('.step-card, .feature-card, .problem-card, .pricing-card').forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(30px)';
+      el.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
+      observer.observe(el);
+    });
+  </script>
+</body>
+</html>
+          
