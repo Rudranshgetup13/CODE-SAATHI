@@ -184,6 +184,118 @@
         <div class="titlebar">
           <h2>Welcome back</h2>
           <div class="mini">New here? <a href="register.html" style="color:#9be9c6">Create account</a></div>
+          <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Create Account • CodeSaathi</title>
+  <link rel="stylesheet" href="login.css" />
+  <style>
+    .auth {
+      max-width: 380px;
+      margin: auto;
+      padding: 20px;
+    }
+    .titlebar {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    a {
+      color: #9be96c;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+
+  <main class="auth">
+    <div class="card reveal delay-2">
+
+      <div class="titlebar">
+        <h2>Create Account</h2>
+        <div class="mini">Already have an account?
+          <a href="login.html">Login</a>
+        </div>
+      </div>
+
+      <form id="registerForm" novalidate>
+
+        <div class="field">
+          <div class="label">Full Name</div>
+          <div class="input">
+            <input type="text" id="fullname" placeholder="Your name" required />
+          </div>
+        </div>
+
+        <div class="field">
+          <div class="label">Email</div>
+          <div class="input">
+            <input type="email" id="email" placeholder="you@example.com" required />
+          </div>
+        </div>
+
+        <div class="field">
+          <div class="label">Phone</div>
+          <div class="input">
+            <input type="tel" id="phone" placeholder="+91..." required />
+          </div>
+        </div>
+
+        <div class="field">
+          <div class="label">Password</div>
+          <div class="input">
+            <input type="password" id="password" placeholder="Enter password" required />
+          </div>
+        </div>
+
+        <div class="field">
+          <div class="label">Confirm Password</div>
+          <div class="input">
+            <input type="password" id="confirmPassword" placeholder="Re-enter password" required />
+          </div>
+        </div>
+
+        <div class="error" id="regErr"></div>
+
+        <button type="submit" class="btn primary">Create Account</button>
+      </form>
+
+    </div>
+  </main>
+
+  <script>
+    const form = document.getElementById("registerForm");
+    const err = document.getElementById("regErr");
+
+    form.addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const name = fullname.value.trim();
+      const email = email.value.trim();
+      const phone = phone.value.trim();
+      const pass = password.value.trim();
+      const cpass = confirmPassword.value.trim();
+
+      if (!name || !email || !phone || !pass || !cpass) {
+        err.innerText = "All fields are required.";
+        return;
+      }
+
+      if (pass !== cpass) {
+        err.innerText = "Passwords do not match.";
+        return;
+      }
+
+      err.innerText = "";
+      alert("Account created successfully!");
+      window.location.href = "login.html";
+    });
+  </script>
+
+</body>
+</html>
+<!--  -->
         </div>
 
         <form id="loginForm" novalidate>
@@ -364,3 +476,4 @@
 </body>
 
 </html>
+
