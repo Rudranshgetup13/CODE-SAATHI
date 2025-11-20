@@ -12,7 +12,7 @@
     :root{
       --bg:#0b0f14;           /* page bg */
       --panel:#0e1420ee;      /* auth card */
-      --muted:#a7b0be;        /* secondary text */
+      --muted:#666d77;        /* secondary text */
       --ink:#e7edf5;          /* primary text */
       --brand:#183ee6;        /* primary brand (HackerRank-ish green) */
       --brand-2:#0039c8;      /* darker brand */
@@ -47,7 +47,7 @@
         linear-gradient(rgba(24,230,122,.18) 1px, transparent 1px),
         linear-gradient(90deg, rgba(24,230,122,.12) 1px, transparent 1px);
       background-size: 40px 40px, 40px 40px;
-      mask-image: radial-gradient(1000px 600px at 70% 40%, black, transparent 70%);
+      mask-image: radial-gradient(1000px 600px at 70% 40%, rgb(0, 0, 0), transparent 70%);
       animation: pan 22s linear infinite;
     }
     @keyframes pan{from{background-position:0 0,0 0}to{background-position:0 40px,40px 0}}
@@ -74,21 +74,16 @@
     .features{margin:2rem 0; display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:14px}
     .feat{padding:12px 14px; border-radius:14px; background:#0d1624dd; border:1px solid #1d2a40; display:flex; align-items:center; gap:10px}
     .feat svg{width:18px; height:18px}
-
     /* Right panel (auth) */
     .auth{display:flex; align-items:center; justify-content:center; padding:4vmin}
-
     .card{position:relative; width:min(520px, 92vw); padding:28px; border-radius:var(--radius); background:linear-gradient(180deg, #0e1420cc, #0b111acc); border:1px solid #1c2a41; box-shadow:var(--shadow-1); backdrop-filter: blur(12px);}
     .card:before{content:""; position:absolute; inset:-2px; border-radius:calc(var(--radius) + 2px); padding:1px; background:linear-gradient(135deg, #1b283e, #18e67a33, #1b283e); -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude;}
-
     .brand{display:flex; align-items:center; gap:.8rem; margin-bottom:10px}
     .brand .logo{width:36px; height:36px; border-radius:10px; background:conic-gradient(from 90deg, #1b18e6, #0ff, #1830e6); filter:drop-shadow(0 6px 16px #1875e633)}
     .brand .title{font-weight:800; letter-spacing:.3px}
-
     .titlebar{display:flex; align-items:center; justify-content:space-between; margin:6px 2px 18px}
     .titlebar h2{margin:0; font-size:1.4rem}
     .titlebar .mini{color:var(--muted); font-size:.95rem}
-
     form{display:grid; gap:14px}
     .field{position:relative}
     .label{display:flex; align-items:center; justify-content:space-between; margin:0 0 6px; color:#b9c6d8; font-weight:600; font-size:.9rem}
@@ -96,16 +91,13 @@
     .input:focus-within{box-shadow:var(--ring); border-color:#2a9e64}
     .input svg{opacity:.7}
     .input input{all:unset; color:var(--ink); font-size:1rem; flex:1}
-
     .helper{font-size:.8rem; color:#8aa1b6}
     .error{font-size:.85rem; color:var(--danger); display:none}
-
     .role-toggle{display:grid; grid-template-columns:1fr 1fr; background:#0b1220; border:1px solid #1d2a40; border-radius:14px; padding:5px; position:relative}
     .role-toggle input{display:none}
     .role-toggle label{position:relative; z-index:1; text-align:center; padding:10px 8px; border-radius:10px; cursor:pointer; user-select:none; font-weight:700; letter-spacing:.3px; color:#98f5c5}
     .slider{position:absolute; top:5px; bottom:5px; width:calc(50% - 5px); left:5px; border-radius:10px; background:linear-gradient(90deg, #143, #0b3); box-shadow: inset 0 0 0 1px #2c725a, 0 8px 24px #0a4f2a88; transition: transform .25s ease}
     #role-solver:checked ~ .slider{transform:translateX(100%)}
-
     .actions{display:grid; gap:12px; margin-top:4px}
     .btn{position:relative; border:none; cursor:pointer; border-radius:14px; padding:14px 16px; font-weight:800; letter-spacing:.4px; background:linear-gradient(180deg, #1bff98, #0bd572 30%, #00c853 60%, #00b24a 100%);
       color:#052312; box-shadow:0 12px 30px rgba(0, 200, 83, .35), inset 0 -2px 0 #058b43; overflow:hidden;}
@@ -114,16 +106,12 @@
     .btn.loading{pointer-events:none; opacity:.9}
     .btn.loading:after{content:""; position:absolute; right:16px; top:50%; width:16px; height:16px; margin-top:-8px; border-radius:50%; border:2px solid #022; border-top-color:#fff; animation:spin .8s linear infinite}
     @keyframes spin{to{transform:rotate(360deg)}}
-
     .links{display:flex; justify-content:space-between; align-items:center; font-size:.9rem; margin-top:4px}
     .links a{color:#9be9c6; text-decoration:none}
-
     .note{margin-top:4px; font-size:.85rem; color:#9bb5c9}
-
     /* Footer */
     .foot{margin-top:18px; display:flex; gap:10px; align-items:center; justify-content:center; color:#87a2b8; font-size:.85rem}
     .foot svg{width:14px; height:14px}
-
     /* Subtle entrance animations */
     .reveal{opacity:0; transform:translateY(10px); animation:reveal .7s ease forwards}
     .reveal.delay-1{animation-delay:.1s}
@@ -131,7 +119,6 @@
     .reveal.delay-3{animation-delay:.3s}
     .reveal.delay-4{animation-delay:.4s}
     @keyframes reveal{to{opacity:1; transform:none}}
-
     /* Mobile tune */
     @media (max-width: 992px){
       body{overflow:auto}
@@ -141,20 +128,18 @@
 </head>
 <body>
   <!-- Background layers -->
-   
   <div class="bg-scape">
     <div class="orb one"></div>
     <div class="orb two"></div>
     <canvas id="particles" class="rain" aria-hidden="true"></canvas>
     <div class="grid" aria-hidden="true"></div>
   </div>
-
   <div class="wrap">
     <!-- Left Hero -->
     <aside class="hero">
       <div class="hero-inner">
         <span class="badge reveal"><i></i> Secure • Fast • Developer‑first</span>
-        <h1 class="reveal delay-1">Sign in to <span class="accent">CodeSathi</span><br><span id="type"></span></h1>
+        <h1 class="reveal delay-1">Sign in to <span class="accent">CodeSaathi</span><br><span id="type"></span></h1>
         <p class="lead reveal delay-2">Your problem‑solving hub for <strong>Askers</strong> and <strong>Solvers</strong>. Track tasks, discuss solutions, and grow with the community.</p>
         <div class="features reveal delay-3">
           <div class="feat">
@@ -172,7 +157,6 @@
         </div>
       </div>
     </aside>
-
     <!-- Right Auth Card -->
     <main class="auth">
       <div class="card reveal delay-2">
@@ -180,13 +164,10 @@
           <div class="logo"></div>
           <div class="title">CodeSathi</div>
         </div>
-
         <div class="titlebar">
           <h2>Welcome back</h2>
           <div class="mini">New here? <a href="register.html" style="color:#9be9c6">Create account</a></div>
-          
         </div>
-
         <form id="loginForm" novalidate>
           <div class="field">
             <div class="label">Email or Phone</div>
@@ -196,7 +177,6 @@
             </div>
             <div class="error" id="idErr">Please enter a valid email or phone.</div>
           </div>
-
           <div class="field">
             <div class="label">Password <span class="helper">min 6 chars</span></div>
             <div class="input">
@@ -206,7 +186,6 @@
             </div>
             <div class="error" id="pwErr">Password must be at least 6 characters.</div>
           </div>
-
           <div class="field">
             <div class="label">Login as</div>
             <div class="role-toggle">
@@ -217,7 +196,6 @@
               <div class="slider" aria-hidden="true"></div>
             </div>
           </div>
-
           <div class="actions">
             <button id="loginBtn" class="btn" type="submit">
               <span class="shine"></span>
@@ -228,9 +206,7 @@
               <a href="verify-otp.html">Use OTP instead</a>
             </div>
           </div>
-
           <div class="note">By continuing, you agree to our <a href="#">Terms</a> and <a href="#">Privacy</a>.</div>
-
           <div class="foot">
             <svg viewBox="0 0 24 24" fill="none"><path d="M12 2v20M2 12h20" stroke="currentColor" stroke-width="2"/></svg>
             <span>Secure sign‑in with device & network checks</span>
@@ -239,7 +215,6 @@
       </div>
     </main>
   </div>
-
   <script>
     /* ===== Typewriter headline ===== */
     const typeEl = document.getElementById('type');
@@ -258,7 +233,6 @@
       setTimeout(typeLoop, dir>0 ? 38 : 22);
     }
     typeLoop();
-
     /* ===== Particle rain (code streams) ===== */
     const cvs = document.getElementById('particles');
     const ctx = cvs.getContext('2d');
@@ -281,7 +255,6 @@
       }
       requestAnimationFrame(loop);
     })();
-
     /* ===== Form UX ===== */
     const form = document.getElementById('loginForm');
     const btn = document.getElementById('loginBtn');
@@ -290,40 +263,31 @@
     const idErr = document.getElementById('idErr');
     const pwErr = document.getElementById('pwErr');
     const togglePw = document.getElementById('togglePw');
-
     togglePw.addEventListener('click', ()=>{
       const t = pwInput.getAttribute('type') === 'password' ? 'text' : 'password';
       pwInput.setAttribute('type', t);
       togglePw.textContent = t==='password' ? '👁️' : '🙈';
     });
-
     function validId(v){
       const email=/^[^\s@]+@[^\s@]+\.[^\s@]+$/; const phone=/^\+?\d{10,14}$/; return email.test(v)||phone.test(v);
     }
-
     form.addEventListener('submit', async (e)=>{
       e.preventDefault();
       idErr.style.display = validId(idInput.value.trim()) ? 'none':'block';
       pwErr.style.display = pwInput.value.length>=6 ? 'none':'block';
       if(idErr.style.display==='block' || pwErr.style.display==='block') return;
-
       // Loading state
       btn.classList.add('loading');
       const label = btn.textContent.trim();
       btn.firstChild && btn.firstChild.classList && btn.firstChild.classList.add('shine');
-
       // Simulate request (replace with real fetch to /login)
       await new Promise(r=>setTimeout(r, 1200));
-
       // Success demo: store user + role then go home
       const role = document.querySelector('input[name="role"]:checked').value;
       const username = idInput.value.includes('@') ? idInput.value.split('@')[0] : 'User';
-      
       // Using in-memory storage instead of localStorage
       window.userData = { username, role };
-
       confetti(btn);
-
       // Redirect based on role
       setTimeout(()=>{
         if(role === 'asker'){
@@ -333,7 +297,6 @@
         }
       }, 500);
     });
-
     /* ===== Confetti on success (tiny, no deps) ===== */
     function confetti(fromEl){
       const rect = fromEl.getBoundingClientRect();
@@ -355,7 +318,6 @@
         if(alive) requestAnimationFrame(step); else frags.forEach(f=>f.el.remove());
       })();
     }
-
     /* ===== Demo forgot link ===== */
     document.getElementById('forgot').addEventListener('click', (e)=>{
       e.preventDefault();
@@ -363,8 +325,4 @@
     });
   </script>
 </body>
-
 </html>
-
-
-
