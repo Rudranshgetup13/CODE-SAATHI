@@ -803,9 +803,9 @@
         <a href="index.html">Home</a>
         <a href="asker.html">Post Problem</a>
         <a href="#" class="active">Solver Dashboard</a>
-        <a href="#profile">My Profile</a>
+        <a href="profile.html">My Profile</a>
         <button class="btn btn-outline">Settings</button>
-        <button class="btn primary">💰 Earnings: ₹1000</button>
+        <button class="btn primary">💰 Earnings:1000 points </button>
       </nav>
     </div>
   </header>
@@ -862,15 +862,15 @@
           <div class="filter-options">
             <label class="filter-option">
               <input type="checkbox" id="budget-low">
-              <span>₹100 - ₹500 (15)</span>
+              <span>100 - 200 points (15)</span>
             </label>
             <label class="filter-option">
               <input type="checkbox" id="budget-mid" checked>
-              <span>₹500 - ₹2000 (20)</span>
+              <span>50-100 points (20)</span>
             </label>
             <label class="filter-option">
               <input type="checkbox" id="budget-high">
-              <span>₹2000+ (10)</span>
+              <span>190-280 (10)</span>
             </label>
           </div>
         </div>
@@ -905,6 +905,8 @@
         <div class="live-dot"></div>
         35 new problems posted in last hour
       </div>
+
+  
 
       <div class="dashboard-header">
         <h1 class="page-title">🚀 Available Problems</h1>
@@ -945,8 +947,8 @@
         
         <form id="proposalForm">
           <div class="form-group">
-            <label for="proposalBudget">💰 Your Quote (₹)</label>
-            <input type="number" id="proposalBudget" min="100" step="50" required>
+            <label for="proposalBudget">💰 Your Quote ()</label>
+            <input type="number" id="proposalBudget" min="" step="50" required>
           </div>
           
           <div class="form-group">
@@ -1002,7 +1004,7 @@
           
           Environment: React 18.2.0, Node.js 16.14.0, Chrome 120`,
           category: 'frontend',
-          budget: 120,
+          budget: 120 ,
           deadline: '2025-01-10T18:00',
           urgency: 'high',
           skills: ['React.js', 'JavaScript', 'API Integration', 'useState', 'useEffect'],
@@ -1103,7 +1105,7 @@
                 <span class="priority-badge priority-${problem.urgency}">${formatUrgency(problem.urgency)}</span>
               </div>
             </div>
-            <div class="budget-badge">₹${problem.budget}</div>
+            <div class="budget-badge">${problem.budget}</div>
           </div>
 
           <div class="problem-description">
@@ -1192,7 +1194,7 @@
         <h2 style="margin-bottom: 1rem; color: var(--text-light);">${problem.title}</h2>
         
         <div style="display: flex; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap;">
-          <span class="budget-badge">₹${problem.budget}</span>
+          <span class="budget-badge">${problem.budget}</span>
           <span class="priority-badge priority-${problem.urgency}">${formatUrgency(problem.urgency)}</span>
           <span class="meta-item">📅 ${formatTimeAgo(problem.timestamp)}</span>
           <span class="meta-item">⏰ Due: ${formatDeadline(problem.deadline)}</span>
