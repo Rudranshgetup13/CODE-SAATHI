@@ -7,6 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <!-- uploaded image path: /mnt/data/841c890f-7423-4b6d-b1de-149a7c176d66.png -->
   <style>
     * {
       margin: 0;
@@ -1256,26 +1257,22 @@
 - Environment details (OS, browser, versions)" required></textarea>
           </div>
 
-          <!-- <div class="grid-3">
-            <div>
-              <label for="budget">💰 Budget (₹)</label>
-              <input id="budget" type="number" min="100" step="50" placeholder="e.g. 1500" required />
-            </div>
+          <div class="grid-2">
             <div>
               <label for="deadline">⏰ Deadline</label>
               <input id="deadline" type="datetime-local" required />
             </div>
             <div>
-              <label for="urgency">🔥 Priority Level</label>
+              <label for="urgency">🔥 Solver Level Required</label>
               <select id="urgency" required>
-                <option value="low">🟢 Low Priority</option>
-                <option value="normal" selected>🟡 Normal Priority</option>
-                <option value="high">🟠 High Priority</option>
-                <option value="urgent">🔴 Urgent</option>
-                <option value="critical">⚡ Critical</option>
+                <option value="Bronze">Bronze</option>
+                <option value="Silver" selected>Silver</option>
+                <option value="Gold">Gold</option>
+                <option value="Diamond">Diamond</option>
+                <option value="Champion">Champion</option>
               </select>
             </div>
-          </div> -->
+          </div>
 
           <div class="skills-section">
             <label>🛠️ Required Skills & Technologies</label>
@@ -1384,7 +1381,6 @@
           <h4>📋 Task Summary</h4>
           <div class="row"><span class="muted">Task ID:</span> <strong id="sumId">—</strong></div>
           <div class="row"><span class="muted">Title:</span> <strong id="sumTitle">—</strong></div>
-          <!-- <div class="row"><span class="muted">Budget:</span> <strong id="sumBudget">—</strong></div> -->
           <div class="row"><span class="muted">Deadline:</span> <strong id="sumDeadline">—</strong></div>
           <div class="row"><span class="muted">Priority:</span> <strong id="sumUrgency">—</strong></div>
           <div class="row">
@@ -1451,31 +1447,14 @@
   <div class="modal" id="payModal">
     <div class="modal-card">
       <button class="modal-close" id="closePay">×</button>
-      <h3>💳 Secure Payment</h3>
+      <h3>💳 Secure Payment (Demo)</h3>
       <div class="payment-summary">
-        <div class="row"><span class="muted">Task Amount:</span><strong id="escrowAmt">₹0</strong></div>
-        <div class="row"><span class="muted">Platform Fee (5%):</span><strong id="platformFee">₹0</strong></div>
-        <div class="row"><span class="muted">Total:</span><strong id="totalAmt">₹0</strong></div>
-        <div class="row"><span class="muted">Payment Gateway:</span><strong>🔒 Razorpay (Demo)</strong></div>
+        <p class="muted">Payment details and settlement will be handled after you accept a developer proposal. This demo modal does not compute amounts (budget feature removed).</p>
       </div>
-      <form id="payForm" style="display: flex; flex-direction: column; gap: 1rem; margin-top: 2rem;">
-        <div>
-          <label>💳 Card Number</label>
-          <input type="text" placeholder="1234 5678 9012 3456" required />
-        </div>
-        <div class="grid-2">
-          <div>
-            <label>📅 Expiry</label>
-            <input type="text" placeholder="MM/YY" required />
-          </div>
-          <div>
-            <label>🔒 CVV</label>
-            <input type="password" placeholder="***" required />
-          </div>
-        </div>
-        <button class="btn primary full" type="submit">🔐 Secure Payment (Demo)</button>
-      </form>
-      <p class="tiny muted center">🛡️ <strong>Demo Mode:</strong> No real charge will be made. Your data is secure.</p>
+      <div style="display:flex; gap:1rem; margin-top:1.5rem;">
+        <button class="btn btn-outline full" id="closePayBtn">Close</button>
+      </div>
+      <p class="tiny muted center" style="margin-top:1rem;">🛡️ <strong>Demo Mode:</strong> No real charge will be made. Your data is secure.</p>
     </div>
   </div>
 
@@ -1683,20 +1662,18 @@
     // Enhanced form handling
     function showPreview() {
       const title = document.getElementById('title').value;
-      // const budget = document.getElementById('budget').value;
       const deadline = document.getElementById('deadline').value;
       const urgency = document.getElementById('urgency').value;
       
-      // if (!title || !budget || !deadline) {
-        // alert('⚠️ Please fill in all required fields first');
-        // return;
-      // }
+      if (!title || !deadline) {
+        alert('⚠️ Please fill in all required fields first');
+        return;
+      }
       
       // Update summary
       const taskId = '#' + Math.random().toString(36).substr(2, 9).toUpperCase();
       document.getElementById('sumId').textContent = taskId;
       document.getElementById('sumTitle').textContent = title;
-      // document.getElementById('sumBudget').textContent = '₹' + budget;
       document.getElementById('sumDeadline').textContent = new Date(deadline).toLocaleDateString();
       document.getElementById('sumUrgency').textContent = urgency.charAt(0).toUpperCase() + urgency.slice(1);
       
@@ -1719,7 +1696,6 @@
         title: title,
         description: document.getElementById('description').value,
         category: document.getElementById('category').value,
-        // budget: budget,
         deadline: deadline,
         urgency: urgency,
         skills: skills,
@@ -1784,58 +1760,46 @@
       document.getElementById('matchingBox').classList.add('hidden');
       
       const developers = [
-        { name: 'Rajesh Kumar', timeline: '2-3 days', bidMultiplier: 0.9 },
-        { name: 'Priya Sharma', timeline: '1-2 days', bidMultiplier: 1.1 },
-        { name: 'Arjun Patel', timeline: '3-4 days', bidMultiplier: 0.85 },
-        { name: 'Sneha Gupta', timeline: '1 day', bidMultiplier: 1.2 }
+        { name: 'Rajesh Kumar', timeline: '2-3 days' },
+        { name: 'Priya Sharma', timeline: '1-2 days' },
+        { name: 'Arjun Patel', timeline: '3-4 days' },
+        { name: 'Sneha Gupta', timeline: '1 day' }
       ];
       
-      // const selectedDev = developers[Math.floor(Math.random() * developers.length)];
-      // const budget = parseInt(document.getElementById('budget').value);
+      const selectedDev = developers[Math.floor(Math.random() * developers.length)];
       
       document.getElementById('devName').textContent = selectedDev.name;
       document.getElementById('devTimeline').textContent = selectedDev.timeline;
-      // document.getElementById('devBid').textContent = '₹' + Math.round(budget * selectedDev.bidMultiplier);
+      // Budget removed — show a generic quote prompt
+      document.getElementById('devBid').textContent = 'Quote upon agreement';
       
       document.getElementById('acceptBox').classList.remove('hidden');
       
       showSuccessMessage('🎉 Perfect match found! Expert developer ready to solve your problem.');
     }
 
-    // function proceedToPay() {
-    //   const budget = parseInt(document.getElementById('budget').value);
-    //   const platformFee = Math.round(budget * 0.05);
-    //   const total = budget + platformFee;
-      
-    //   document.getElementById('escrowAmt').textContent = '₹' + budget;
-    //   document.getElementById('platformFee').textContent = '₹' + platformFee;
-    //   document.getElementById('totalAmt').textContent = '₹' + total;
-      
-    //   document.getElementById('payModal').classList.add('show');
-    // }
+    function proceedToPay() {
+      // Budget/fee calculations removed. Open generic demo payment modal or instructions.
+      document.getElementById('payModal').classList.add('show');
+    }
 
     function handlePayment(e) {
       e.preventDefault();
       
-      const payBtn = e.target.querySelector('button[type="submit"]');
-      payBtn.textContent = '🔄 Processing...';
-      payBtn.disabled = true;
-      
+      // Demo payment flow — no budget calculations involved
+      showSuccessMessage('🔄 Processing demo payment...');
       setTimeout(() => {
         document.getElementById('payModal').classList.remove('show');
         updateStatusStep(4);
         
-        showSuccessMessage('💳 Payment successful! Funds secured in escrow. Developer has been notified and will start working immediately.');
-        
-        payBtn.textContent = '🔐 Secure Payment (Demo)';
-        payBtn.disabled = false;
+        showSuccessMessage('💳 Payment simulated. Developer notified and will start working immediately.');
         
         // Simulate work completion
         setTimeout(() => {
           updateStatusStep(5);
           showSuccessMessage('🏆 Congratulations! Your problem has been solved successfully. Solution delivered with documentation.');
         }, 5000);
-      }, 3000);
+      }, 1500);
     }
 
     function updateStatusStep(stepNumber) {
@@ -1964,7 +1928,7 @@
       // Skills input events
       const skillsInput = document.getElementById('skillsInput');
       skillsInput.addEventListener('input', function() {
-        showSkillSuggestions(this.value);
+        debouncedShowSkillSuggestions(this.value);
       });
       
       skillsInput.addEventListener('keypress', function(e) {
@@ -2028,7 +1992,7 @@
       document.getElementById('previewBtn').addEventListener('click', showPreview);
       document.getElementById('confirmPost').addEventListener('click', confirmPost);
       document.getElementById('goToPay').addEventListener('click', proceedToPay);
-      document.getElementById('payForm').addEventListener('submit', handlePayment);
+      document.getElementById('payModal').addEventListener('submit', handlePayment);
       
       // AI Assistant
       document.getElementById('aiAssistant').addEventListener('click', showAIAssistant);
@@ -2043,6 +2007,10 @@
       });
       
       document.getElementById('closePay').addEventListener('click', () => {
+        document.getElementById('payModal').classList.remove('show');
+      });
+
+      document.getElementById('closePayBtn').addEventListener('click', () => {
         document.getElementById('payModal').classList.remove('show');
       });
       
@@ -2060,55 +2028,19 @@
         }
       });
 
-      // // Budget input validation and suggestions
-      // document.getElementById('budget').addEventListener('input', function() {
-      //   const value = parseInt(this.value);
-      //   const category = document.getElementById('category').value;
-        
-      //   // Budget suggestions based on category
-      //   const budgetGuide = {
-      //     'frontend': { min: 500, avg: 1500, max: 5000 },
-      //     'backend': { min: 800, avg: 2000, max: 8000 },
-      //     'fullstack': { min: 1500, avg: 4000, max: 15000 },
-      //     'mobile': { min: 1000, avg: 3000, max: 10000 },
-      //     'data': { min: 1200, avg: 3500, max: 12000 },
-      //     'devops': { min: 1000, avg: 2500, max: 8000 }
-      //   };
-        
-      //   if (category && budgetGuide[category] && value) {
-      //     const guide = budgetGuide[category];
-      //     let suggestion = '';
-          
-      //     if (value < guide.min) {
-      //       suggestion = `💡 Tip: ${category} projects typically start from ₹${guide.min}`;
-      //     } else if (value > guide.max) {
-      //       suggestion = `💡 High budget detected. Consider breaking into smaller tasks.`;
-      //     } else {
-      //       suggestion = `✅ Budget looks good for ${category} category`;
-      //     }
-          
-      //     // Show suggestion (you could add a suggestion element)
-      //     console.log(suggestion);
-      //   }
-      // });
-
-      // // Auto-save draft functionality
-      // const formInputs = ['title', 'description', 'budget', 'deadline', 'email'];
-      // formInputs.forEach(inputId => {
-      //   const input = document.getElementById(inputId);
-      //   if (input) {
-      //     input.addEventListener('input', function() {
-      //       const draft = {
-      //         [inputId]: this.value,
-      //         timestamp: Date.now()
-      //       };
-            
-      //       let savedDraft = JSON.parse(localStorage.getItem('CODESAATHIDraft') || '{}');
-      //       savedDraft = { ...savedDraft, ...draft };
-      //       localStorage.setItem('CODESAATHIDraft', JSON.stringify(savedDraft));
-      //     });
-      //   }
-      // });
+      // Auto-save draft functionality (budget removed)
+      const formInputs = ['title', 'description', 'deadline', 'email'];
+      formInputs.forEach(inputId => {
+        const input = document.getElementById(inputId);
+        if (input) {
+          input.addEventListener('input', function() {
+            let savedDraft = JSON.parse(localStorage.getItem('CODESAATHIDraft') || '{}');
+            savedDraft[inputId] = this.value;
+            savedDraft.timestamp = Date.now();
+            localStorage.setItem('CODESAATHIDraft', JSON.stringify(savedDraft));
+          });
+        }
+      });
 
       // Load saved draft
       const savedDraft = JSON.parse(localStorage.getItem('CODESAATHIDraft') || '{}');
@@ -2155,15 +2087,15 @@
       trackEvent('page_view', { page: 'post_problem' });
       
       // Track form progress
-    //   const requiredFields = ['title', 'description', 'budget', 'deadline'];
-    //   requiredFields.forEach(fieldId => {
-    //     document.getElementById(fieldId).addEventListener('blur', function() {
-    //       if (this.value) {
-    //         trackEvent('form_field_completed', { field: fieldId });
-    //       }
-    //     });
-    //   });
-    // });
+      const requiredFields = ['title', 'description', 'deadline'];
+      requiredFields.forEach(fieldId => {
+        document.getElementById(fieldId).addEventListener('blur', function() {
+          if (this.value) {
+            trackEvent('form_field_completed', { field: fieldId });
+          }
+        });
+      });
+    });
 
     // Performance optimization
     function debounce(func, wait) {
@@ -2189,6 +2121,15 @@
           .catch(error => console.log('SW registration failed'));
       });
     }
+
+    // Demo: handle submit on payment modal (generic)
+    document.addEventListener('click', function (e) {
+      // Prevent accidental submit attempts on the demo pay modal by <form> handlers
+      if (e.target && e.target.closest && e.target.closest('#payModal')) {
+        // no-op for demo
+      }
+    });
+
   </script>
 </body>
 </html>
