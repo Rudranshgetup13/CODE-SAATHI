@@ -1384,7 +1384,7 @@
           <h4>📋 Task Summary</h4>
           <div class="row"><span class="muted">Task ID:</span> <strong id="sumId">—</strong></div>
           <div class="row"><span class="muted">Title:</span> <strong id="sumTitle">—</strong></div>
-          <div class="row"><span class="muted">Budget:</span> <strong id="sumBudget">—</strong></div>
+          <!-- <div class="row"><span class="muted">Budget:</span> <strong id="sumBudget">—</strong></div> -->
           <div class="row"><span class="muted">Deadline:</span> <strong id="sumDeadline">—</strong></div>
           <div class="row"><span class="muted">Priority:</span> <strong id="sumUrgency">—</strong></div>
           <div class="row">
@@ -1683,20 +1683,20 @@
     // Enhanced form handling
     function showPreview() {
       const title = document.getElementById('title').value;
-      const budget = document.getElementById('budget').value;
+      // const budget = document.getElementById('budget').value;
       const deadline = document.getElementById('deadline').value;
       const urgency = document.getElementById('urgency').value;
       
-      if (!title || !budget || !deadline) {
-        alert('⚠️ Please fill in all required fields first');
-        return;
-      }
+      // if (!title || !budget || !deadline) {
+        // alert('⚠️ Please fill in all required fields first');
+        // return;
+      // }
       
       // Update summary
       const taskId = '#' + Math.random().toString(36).substr(2, 9).toUpperCase();
       document.getElementById('sumId').textContent = taskId;
       document.getElementById('sumTitle').textContent = title;
-      document.getElementById('sumBudget').textContent = '₹' + budget;
+      // document.getElementById('sumBudget').textContent = '₹' + budget;
       document.getElementById('sumDeadline').textContent = new Date(deadline).toLocaleDateString();
       document.getElementById('sumUrgency').textContent = urgency.charAt(0).toUpperCase() + urgency.slice(1);
       
@@ -1719,7 +1719,7 @@
         title: title,
         description: document.getElementById('description').value,
         category: document.getElementById('category').value,
-        budget: budget,
+        // budget: budget,
         deadline: deadline,
         urgency: urgency,
         skills: skills,
@@ -1790,29 +1790,29 @@
         { name: 'Sneha Gupta', timeline: '1 day', bidMultiplier: 1.2 }
       ];
       
-      const selectedDev = developers[Math.floor(Math.random() * developers.length)];
-      const budget = parseInt(document.getElementById('budget').value);
+      // const selectedDev = developers[Math.floor(Math.random() * developers.length)];
+      // const budget = parseInt(document.getElementById('budget').value);
       
       document.getElementById('devName').textContent = selectedDev.name;
       document.getElementById('devTimeline').textContent = selectedDev.timeline;
-      document.getElementById('devBid').textContent = '₹' + Math.round(budget * selectedDev.bidMultiplier);
+      // document.getElementById('devBid').textContent = '₹' + Math.round(budget * selectedDev.bidMultiplier);
       
       document.getElementById('acceptBox').classList.remove('hidden');
       
       showSuccessMessage('🎉 Perfect match found! Expert developer ready to solve your problem.');
     }
 
-    function proceedToPay() {
-      const budget = parseInt(document.getElementById('budget').value);
-      const platformFee = Math.round(budget * 0.05);
-      const total = budget + platformFee;
+    // function proceedToPay() {
+    //   const budget = parseInt(document.getElementById('budget').value);
+    //   const platformFee = Math.round(budget * 0.05);
+    //   const total = budget + platformFee;
       
-      document.getElementById('escrowAmt').textContent = '₹' + budget;
-      document.getElementById('platformFee').textContent = '₹' + platformFee;
-      document.getElementById('totalAmt').textContent = '₹' + total;
+    //   document.getElementById('escrowAmt').textContent = '₹' + budget;
+    //   document.getElementById('platformFee').textContent = '₹' + platformFee;
+    //   document.getElementById('totalAmt').textContent = '₹' + total;
       
-      document.getElementById('payModal').classList.add('show');
-    }
+    //   document.getElementById('payModal').classList.add('show');
+    // }
 
     function handlePayment(e) {
       e.preventDefault();
@@ -2060,55 +2060,55 @@
         }
       });
 
-      // Budget input validation and suggestions
-      document.getElementById('budget').addEventListener('input', function() {
-        const value = parseInt(this.value);
-        const category = document.getElementById('category').value;
+      // // Budget input validation and suggestions
+      // document.getElementById('budget').addEventListener('input', function() {
+      //   const value = parseInt(this.value);
+      //   const category = document.getElementById('category').value;
         
-        // Budget suggestions based on category
-        const budgetGuide = {
-          'frontend': { min: 500, avg: 1500, max: 5000 },
-          'backend': { min: 800, avg: 2000, max: 8000 },
-          'fullstack': { min: 1500, avg: 4000, max: 15000 },
-          'mobile': { min: 1000, avg: 3000, max: 10000 },
-          'data': { min: 1200, avg: 3500, max: 12000 },
-          'devops': { min: 1000, avg: 2500, max: 8000 }
-        };
+      //   // Budget suggestions based on category
+      //   const budgetGuide = {
+      //     'frontend': { min: 500, avg: 1500, max: 5000 },
+      //     'backend': { min: 800, avg: 2000, max: 8000 },
+      //     'fullstack': { min: 1500, avg: 4000, max: 15000 },
+      //     'mobile': { min: 1000, avg: 3000, max: 10000 },
+      //     'data': { min: 1200, avg: 3500, max: 12000 },
+      //     'devops': { min: 1000, avg: 2500, max: 8000 }
+      //   };
         
-        if (category && budgetGuide[category] && value) {
-          const guide = budgetGuide[category];
-          let suggestion = '';
+      //   if (category && budgetGuide[category] && value) {
+      //     const guide = budgetGuide[category];
+      //     let suggestion = '';
           
-          if (value < guide.min) {
-            suggestion = `💡 Tip: ${category} projects typically start from ₹${guide.min}`;
-          } else if (value > guide.max) {
-            suggestion = `💡 High budget detected. Consider breaking into smaller tasks.`;
-          } else {
-            suggestion = `✅ Budget looks good for ${category} category`;
-          }
+      //     if (value < guide.min) {
+      //       suggestion = `💡 Tip: ${category} projects typically start from ₹${guide.min}`;
+      //     } else if (value > guide.max) {
+      //       suggestion = `💡 High budget detected. Consider breaking into smaller tasks.`;
+      //     } else {
+      //       suggestion = `✅ Budget looks good for ${category} category`;
+      //     }
           
-          // Show suggestion (you could add a suggestion element)
-          console.log(suggestion);
-        }
-      });
+      //     // Show suggestion (you could add a suggestion element)
+      //     console.log(suggestion);
+      //   }
+      // });
 
-      // Auto-save draft functionality
-      const formInputs = ['title', 'description', 'budget', 'deadline', 'email'];
-      formInputs.forEach(inputId => {
-        const input = document.getElementById(inputId);
-        if (input) {
-          input.addEventListener('input', function() {
-            const draft = {
-              [inputId]: this.value,
-              timestamp: Date.now()
-            };
+      // // Auto-save draft functionality
+      // const formInputs = ['title', 'description', 'budget', 'deadline', 'email'];
+      // formInputs.forEach(inputId => {
+      //   const input = document.getElementById(inputId);
+      //   if (input) {
+      //     input.addEventListener('input', function() {
+      //       const draft = {
+      //         [inputId]: this.value,
+      //         timestamp: Date.now()
+      //       };
             
-            let savedDraft = JSON.parse(localStorage.getItem('CODESAATHIDraft') || '{}');
-            savedDraft = { ...savedDraft, ...draft };
-            localStorage.setItem('CODESAATHIDraft', JSON.stringify(savedDraft));
-          });
-        }
-      });
+      //       let savedDraft = JSON.parse(localStorage.getItem('CODESAATHIDraft') || '{}');
+      //       savedDraft = { ...savedDraft, ...draft };
+      //       localStorage.setItem('CODESAATHIDraft', JSON.stringify(savedDraft));
+      //     });
+      //   }
+      // });
 
       // Load saved draft
       const savedDraft = JSON.parse(localStorage.getItem('CODESAATHIDraft') || '{}');
@@ -2155,15 +2155,15 @@
       trackEvent('page_view', { page: 'post_problem' });
       
       // Track form progress
-      const requiredFields = ['title', 'description', 'budget', 'deadline'];
-      requiredFields.forEach(fieldId => {
-        document.getElementById(fieldId).addEventListener('blur', function() {
-          if (this.value) {
-            trackEvent('form_field_completed', { field: fieldId });
-          }
-        });
-      });
-    });
+    //   const requiredFields = ['title', 'description', 'budget', 'deadline'];
+    //   requiredFields.forEach(fieldId => {
+    //     document.getElementById(fieldId).addEventListener('blur', function() {
+    //       if (this.value) {
+    //         trackEvent('form_field_completed', { field: fieldId });
+    //       }
+    //     });
+    //   });
+    // });
 
     // Performance optimization
     function debounce(func, wait) {
