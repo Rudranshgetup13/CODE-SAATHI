@@ -659,65 +659,82 @@
     }
 
     /* Enhanced Form Styles */
-    .form-grid {
-      display: grid;
-      gap: 2rem;
-    }
+    /* Enhanced Form Styles */
+.form-grid {
+  display: grid;
+  gap: 2rem;
+}
 
-    .grid-2 {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1.5rem;
-    }
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
 
-    .grid-3 {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 1.5rem;
-    }
+.grid-3 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1.5rem;
+}
 
-    label {
-      display: block;
-      margin-bottom: 0.75rem;
-      font-weight: 600;
-      color: var(--text-light);
-      font-size: 0.95rem;
-    }
+label {
+  display: block;
+  margin-bottom: 0.75rem;
+  font-weight: 600;
+  color: var(--text-light);
+  font-size: 0.95rem;
+}
 
-    input,
-    textarea,
-    select {
-      width: 100%;
-      padding: 1rem;
-      background: rgba(255, 255, 255, 0.05);
-      border: 2px solid var(--glass-border);
-      border-radius: 12px;
-      color: var(--text-light);
-      font-family: inherit;
-      font-size: 0.95rem;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    }
+/* === FIXED INPUT STYLES === */
+input,
+textarea,
+select {
+  width: 100%;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid var(--glass-border);
+  border-radius: 12px;
+  color: var(--text-light);
+  font-family: inherit;
+  font-size: 0.95rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
-    input:focus,
-    textarea:focus,
-    select:focus {
-      outline: none;
-      border-color: rgba(79, 172, 254, 0.6);
-      box-shadow: 0 0 0 4px rgba(79, 172, 254, 0.1);
-      background: rgba(255, 255, 255, 0.08);
-      transform: translateY(-2px);
-    }
+  /* 🔥 Important Fix */
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
 
-    input::placeholder,
-    textarea::placeholder {
-      color: var(--text-muted);
-    }
+/* Fix dropdown list background */
+select {
+  background-color: rgba(255, 255, 255, 0.05);
+}
 
-    textarea {
-      resize: vertical;
-      min-height: 140px;
-      font-family: 'JetBrains Mono', monospace;
-    }
+select option {
+  background-color: #1a1a2e;
+  color: var(--text-light);
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  border-color: rgba(79, 172, 254, 0.6);
+  box-shadow: 0 0 0 4px rgba(79, 172, 254, 0.1);
+  background: rgba(255, 255, 255, 0.08);
+  transform: translateY(-2px);
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--text-muted);
+}
+
+textarea {
+  resize: vertical;
+  min-height: 140px;
+  font-family: 'JetBrains Mono', monospace;
+}
 
     /* Advanced Skills Input */
     .skills-section {
