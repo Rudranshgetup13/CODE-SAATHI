@@ -542,24 +542,48 @@
       border: 2px solid transparent;
     }
 
-    .btn.primary:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 20px 40px rgba(102, 126, 234, 0.4);
-    }
+  /* Fix button alignment globally */
+.btn {
+  padding: 0.75rem 2rem;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  text-decoration: none;
+  display: inline-flex;        /* 🔥 important */
+  align-items: center;         /* 🔥 centers text vertically */
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  font-size: 0.9rem;
+}
 
-    .btn.cta {
-      background: var(--accent);
-      color: black;
-      padding: 1rem 2.5rem;
-      font-size: 1.1rem;
-      border-radius: 50px;
-      box-shadow: 0 10px 30px rgba(79, 172, 254, 0.3);
-    }
+/* Primary button */
+.btn.primary {
+  background: var(--primary);
+  color: black;
+  border: 2px solid transparent; /* matches outline button height */
+}
 
-    .btn.cta:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 20px 50px rgba(79, 172, 254, 0.5);
-    }
+.btn.primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 20px 40px rgba(102, 126, 234, 0.4);
+}
+
+/* CTA button */
+.btn.cta {
+  background: var(--accent);
+  color: black;
+  padding: 1rem 2.5rem;
+  font-size: 1.1rem;
+  border-radius: 50px;
+  box-shadow: 0 10px 30px rgba(79, 172, 254, 0.3);
+}
+
+.btn.cta:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 20px 50px rgba(79, 172, 254, 0.5);
+}
 
     /* Mobile Menu */
     .hamburger {
